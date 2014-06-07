@@ -1,7 +1,68 @@
 <!DOCTYPE html>
 <html>
+  <head>
+  	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  	<title>Калькулятор размещения спутников связи для мода RemoteTech2</title>
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+  	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  	<script src="http://mybootstrap.ru/wp-content/themes/clear-theme/js/bootstrap-dropdown.js"></script>
+  	<script src="planets.js"></script>
+  	<script src="antenns.js"></script>
+  	<script src="main.js"></script>
+	<link rel="stylesheet" href="main.css">
+  </head>
   <body>
-    <h1>Hello, World!</h1>
-    <p>Hosted by GitHub.
+	<div class="container">
+		<div class="page-header">
+			<h1>Калькулятор размещения спутников связи <br><small>для мода RemoteTech2 1.3.3, KSP 0.23.5</small></h1>
+			<section>
+				<h4>Доступные антенны <a class="my-show" data-element="#antenns" href="#">▼</a></h4>
+				<table id="antenns" class="table-striped hide">
+					<thead><tr><th>&nbsp;<th>Антенна<th>Дальность, м<th>Угол раствора, °
+					<tbody>
+				</table>
+				<br>
+			</section>
+			<section>
+				<h4>Небесное тело</h4>
+				<table id="celestial" class="table-striped">
+				<thead><tr><th>&nbsp;<th>Радиус, м<th>Масса, кг<th>Сидерический период<th>Радиус сферы влияния, м
+
+				<tbody><tr><td><div id="cBody" class="btn-group">
+						<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" >Выберите <span class="caret">&nbsp;</span></button>
+						<ul id="cBodies" class="dropdown-menu" data-idx="-1"></ul>
+					</div>
+					<td id="cbRadius">&nbsp;<td id="cbMass">&nbsp;<td id="cbSideral">&nbsp;<td id="cbSOI">&nbsp;
+				</table>
+				<br>
+			</section>
+			<section>
+				<h4>Выбор орбиты</h4>
+				<div class="row">
+					<div class="selectOrbit col-md-6">
+						<input type="radio" name="orbit" value="0" id="orb0">
+						<label for="orb0">&nbsp;Синхронная&nbsp;</label><br>
+						<span id="syncOrbit" class="orbParam empty" data-alt="0">Выберите планету</span>
+					</div>
+					<div class="selectOrbit col-md-6">
+						<input type="radio" name="orbit" value="1" id="orb1"><label for="orb1">&nbsp;Резонансная&nbsp;</label>
+						<input type="number" step="any" min="1" id="resFrom" value="1">&nbsp;/&nbsp;<input type="number" step="any" min="1" id="resTo" value="2"><br>
+						<span id="resonOrbit" class="orbParam empty" data-alt="0">Выберите планету</span>
+					</div>
+					<div class="selectOrbit col-md-6">
+						<input type="radio" name="orbit" value="2" id="orb2"><label for="orb2">&nbsp;Произвольная высота&nbsp;</label>
+						<input type="text" id="freeAlt" value="100000"><label for="orb2">&nbsp;м</label><br>
+						<span id="freeAltOrbit" class="orbParam empty" data-alt="0">Выберите планету</span>
+					</div>
+					<div class="selectOrbit col-md-6">
+						<input type="radio" name="orbit" value="3" id="orb3"><label for="orb3">&nbsp;Произвольный период&nbsp;</label>
+						<input type="text" id="freeTime" value="7200"><label for="orb3">&nbsp;с</label><br>
+						<span id="freeTimeOrbit" class="orbParam empty" data-alt="0">Выберите планету</span>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
   </body>
 </html>
