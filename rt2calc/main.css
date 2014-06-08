@@ -11,19 +11,20 @@ table {
 	width: 95%;
 }
 
+td,th {
+	text-align: center;
+	vertical-align: middle!important;
+	padding: 0.5em;
+}
+
 th {
     background-color: #909090;
     font-weight: normal;
     color: #fff;
     text-shadow:#414141 0 1px 0px;
-    line-height: 40px;
-}
+    font-size: 1.2em;
+} 
 
-td,th {
-	font-size: 1.2em;
-	text-align: center;
-	vertical-align: middle!important;
-}
 
 tr.unavail td {
 	color: #A0A0A0; 
@@ -33,7 +34,7 @@ li {
 	text-align: left;
 }
 
-#resFrom, #resTo {
+#resFrom, #resTo, #satCount {
 	width: 4em;
 	text-align: right;
 }
@@ -71,3 +72,9 @@ li {
 	width: 8em;
 	text-align: right;
 }
+
+.type {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+

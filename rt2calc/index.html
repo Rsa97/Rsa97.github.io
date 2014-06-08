@@ -14,54 +14,109 @@
   </head>
   <body>
 	<div class="container">
-		<div class="page-header">
-			<h1>Калькулятор размещения спутников связи <br><small>для мода RemoteTech2 1.3.3, KSP 0.23.5</small></h1>
-			<section>
-				<h4>Доступные антенны <a class="my-show" data-element="#antenns" href="#">▼</a></h4>
-				<table id="antenns" class="table-striped hide">
-					<thead><tr><th>&nbsp;<th>Антенна<th>Дальность, м<th>Угол раствора, °
-					<tbody>
-				</table>
-				<br>
-			</section>
-			<section>
-				<h4>Небесное тело</h4>
-				<table id="celestial" class="table-striped">
-				<thead><tr><th>&nbsp;<th>Радиус, м<th>Масса, кг<th>Сидерический период<th>Радиус сферы влияния, м
-
-				<tbody><tr><td><div id="cBody" class="btn-group">
-						<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" >Выберите <span class="caret">&nbsp;</span></button>
-						<ul id="cBodies" class="dropdown-menu" data-idx="-1"></ul>
-					</div>
-					<td id="cbRadius">&nbsp;<td id="cbMass">&nbsp;<td id="cbSideral">&nbsp;<td id="cbSOI">&nbsp;
-				</table>
-				<br>
-			</section>
-			<section>
-				<h4>Выбор орбиты</h4>
-				<div class="row">
-					<div class="selectOrbit col-md-6">
-						<input type="radio" name="orbit" value="0" id="orb0" selected>
-						<label for="orb0">&nbsp;Синхронная&nbsp;</label><br>
-						<span id="syncOrbit" class="orbParam empty" data-alt="0">Выберите планету</span>
-					</div>
-					<div class="selectOrbit col-md-6">
-						<input type="radio" name="orbit" value="1" id="orb1"><label for="orb1">&nbsp;Резонансная&nbsp;</label>
-						<input type="number" step="any" min="1" id="resFrom" value="1">&nbsp;/&nbsp;<input type="number" step="any" min="1" id="resTo" value="2"><br>
-						<span id="resonOrbit" class="orbParam empty" data-alt="0">Выберите планету</span>
-					</div>
-					<div class="selectOrbit col-md-6">
-						<input type="radio" name="orbit" value="2" id="orb2"><label for="orb2">&nbsp;Произвольная высота&nbsp;</label>
-						<input type="text" id="freeAlt" value="100000"><label for="orb2">&nbsp;м</label><br>
-						<span id="freeAltOrbit" class="orbParam empty" data-alt="0">Выберите планету</span>
-					</div>
-					<div class="selectOrbit col-md-6">
-						<input type="radio" name="orbit" value="3" id="orb3"><label for="orb3">&nbsp;Произвольный период&nbsp;</label>
-						<input type="text" id="freeTime" value="7200"><label for="orb3">&nbsp;с</label><br>
-						<span id="freeTimeOrbit" class="orbParam empty" data-alt="0">Выберите планету</span>
-					</div>
+		<h1>Калькулятор размещения спутников связи <br><small>для мода RemoteTech2 1.3.3, KSP 0.23.5</small></h1>
+		<div>
+			<h3>Доступные антенны <a class="my-show" data-element="#antenns" href="#">▼</a></h3>
+			<table id="antenns" class="table-striped hide">
+				<thead><tr><th>&nbsp;<th>Антенна<th>Дальность, м<th>Угол раствора, °
+				<tbody>
+			</table>
+			<hr>
+			</div>
+		<div>
+			<h3>Небесное тело</h3>
+			<table id="celestial" class="table-striped">
+			<thead><tr><th>&nbsp;<th>Радиус, м<th>Масса, кг<th>Сидерический период<th>Радиус сферы влияния, м
+			<tbody><tr><td><div id="cBody" class="btn-group">
+				<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" >Выберите <span class="caret">&nbsp;</span></button>
+				<ul id="cBodies" class="dropdown-menu" data-idx="-1"></ul>
 				</div>
-			</section>
+				<td id="cbRadius">&nbsp;<td id="cbMass">&nbsp;<td id="cbSideral">&nbsp;<td id="cbSOI">&nbsp;
+			</table>
+			<hr>
+		</div>
+		<div>
+			<h3>Выбор орбиты</h3>
+			<div class="row">
+				<div class="selectOrbit col-md-6">
+					<input type="radio" name="orbit" value="0" id="orb0" checked>
+					<label for="orb0">&nbsp;Синхронная&nbsp;</label><br>
+					<span id="syncOrbit" class="orbParam empty" data-alt="0" data-time="0">Выберите планету</span>
+				</div>
+				<div class="selectOrbit col-md-6">
+					<input type="radio" name="orbit" value="1" id="orb1"><label for="orb1">&nbsp;Резонансная&nbsp;</label>
+					<input type="number" step="any" min="1" id="resFrom" value="1">&nbsp;/&nbsp;<input type="number" step="any" min="1" id="resTo" value="2"><br>
+					<span id="resonOrbit" class="orbParam empty" data-alt="0" data-time="0">Выберите планету</span>
+				</div>
+				<div class="selectOrbit col-md-6">
+					<input type="radio" name="orbit" value="2" id="orb2"><label for="orb2">&nbsp;Произвольная высота&nbsp;</label>
+					<input type="text" id="freeAlt" value="100000"><label for="orb2">&nbsp;м</label><br>
+					<span id="freeAltOrbit" class="orbParam empty" data-alt="0" data-time="0">Выберите планету</span>
+				</div>
+				<div class="selectOrbit col-md-6">
+					<input type="radio" name="orbit" value="3" id="orb3"><label for="orb3">&nbsp;Произвольный период&nbsp;</label>
+					<input type="text" id="freeTime" value="7200"><label for="orb3">&nbsp;с</label><br>
+					<span id="freeTimeOrbit" class="orbParam empty" data-alt="0" data-time="0">Выберите планету</span>
+				</div>
+			</div>
+			<hr>
+		</div>
+		<div>
+			<h3>Орбитальная группа</h3>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Cпутников для кольца:&nbsp;</label><span id="minSatCount"></span>   
+				</div>
+				<div class="col-md-6">
+					<label>Cпутников для покрытия поверхности:&nbsp;</label><span id="minGndCount"></span>   
+				</div>
+				<div class="col-md-6">
+					<label for="satCount">Желаемое количество спутников:&nbsp;</label><input type="number" step="any" min="1" id="satCount" value="1">   
+				</div>
+			</div>
+			<hr>
+		</div>
+		<div class="result">
+			<h3>Результат</h3>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Кольцо связи:&nbsp;</label><span id="satRing"></span>   
+				</div>
+				<div class="col-md-6">
+					<label>Наземное покрытие:&nbsp;</label><span id="satGnd"></span>   
+				</div>
+				<div class="col-md-6">
+					<label>Угол между спутниками:&nbsp;</label><span id="satAngle"></span>   
+				</div>
+				<div class="col-md-6">
+					<label>Расстояние между спутниками:&nbsp;</label><span id="satDist"></span>   
+				</div>
+				<div class="col-md-6">
+					<label>Ap/Pe орбиты выведения:&nbsp;</label><span id="waitOrbPe"></span>   
+				</div>
+				<div class="col-md-6">
+					<label>Склонение перпендикулярной орбиты:&nbsp;</label><span id="polarInc"></span>   
+				</div>
+				<div class="col-md-6">
+					<label>Период орбиты выведения:&nbsp;</label><span id="waitOrbTime"></span>   
+				</div>
+				<div class="col-md-6">
+					<label>Общее время выведения:&nbsp;</label><span id="waitOrbTotalTime"></span>   
+				</div>
+				<div class="col-md-6">
+					<label>Зона наземного покрытия:&nbsp;</label><span id="gndFOV"></span>   
+				</div>
+				<div class="col-md-6">
+					<label>Полоса непрерывного покрытия:&nbsp;</label><span id="gndFullFOV"></span>   
+				</div>
+				<div class="col-md-12">
+					<label>Антенны орбитального кольца:&nbsp;</label><br><span id="orbAntenns"></span>   
+				</div>
+				<div class="col-md-12">
+					<label>Антенны наземной связи:&nbsp;</label><br><span id="orbAntenns"></span>   
+				</div>
+			</div>
+			<hr>
 		</div>
 	</div>
   </body>
