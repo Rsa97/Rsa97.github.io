@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  	<title>Калькулятор размещения спутников связи для мода RemoteTech2</title>
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+  	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  	<script src="http://mybootstrap.ru/wp-content/themes/clear-theme/js/bootstrap-dropdown.js"></script>
+  	<script src="planets.js"></script>
+  	<script src="scanners.js"></script>
+  	<script src="main.js"></script>
+	<link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+	<div class="container">
+		<h1>Орбиты сканирования<br><small>моды ScanSat 6.0, Kethane 0.8.5</small></h1>
+		<div>
+			<h3>Доступные сканеры</h3>
+			<table id="scanners" class="table-striped">
+				<thead><tr><th>&nbsp;<th>Сканер<th>Минимальная высота<th>Оптимальная высота<th>Максимальная высота
+				<tbody>
+			</table>
+			<hr>
+			</div>
+		<div>
+			<h3>Небесное тело</h3>
+			<table id="celestial" class="table-striped">
+				<thead><tr><th>Небесное тело<th>Радиус орбиты, м<th>Склонение, °<th>Орбитальный период<th>Время сканирования
+				<tbody>
+			</table>
+			<hr>
+		</div>
+	</div>
+  </body>
+</html>

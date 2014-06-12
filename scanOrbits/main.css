@@ -1,0 +1,48 @@
+.container {
+	width: 800px!important;
+}
+
+#cBodies {
+	height: 256px;
+	overflow-y: scroll;
+}
+
+table {
+	width: 95%;
+}
+
+td,th {
+	text-align: center;
+	vertical-align: middle!important;
+	padding: 0.5em;
+}
+
+th {
+    background-color: #909090;
+    font-weight: normal;
+    color: #fff;
+    text-shadow:#414141 0 1px 0px;
+    font-size: 1.2em;
+} 
+
+
+tr.unavail td {
+	color: #A0A0A0; 
+}
+
+li {
+	text-align: left;
+}
+
+.sun>a{
+	font-weight: bold !important;
+}
+
+.planet>a {
+	font-weight: bold !important;
+	margin-left: 1em;
+}
+
+.moon>a {
+	margin-left: 2em;
+}
