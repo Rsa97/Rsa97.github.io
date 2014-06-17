@@ -54,7 +54,7 @@ function formatTime(period) {
 
 function calcOrbits() {
 	var minOver = 0.1;
-	var limitFOV = 1;
+	var limitFOV = 2;
 	var maxInclin = 85/180/Math.PI;
 	var maxDays = 100;
 	var Alt, incPeriod, incAlt;
@@ -93,15 +93,17 @@ function calcOrbits() {
 		console.log(body[cbName]+" : "+minAlt+" ("+Math.sqrt(Math.pow(minAlt+body[cbRadius], 3)/body[cbGM])*2*Math.PI+") : "+
 									   maxAlt+" ("+Math.sqrt(Math.pow(maxAlt+body[cbRadius], 3)/body[cbGM])*2*Math.PI+") : "+minResonance+" : "+maxResonance);
 		minTime = -1;
-		for (done = false, bodyTurns = 1; !done && bodyTurns <= maxDays; bodyTurns++) {
+		for (done = false, bodyTurns = 1; !done && bodyTurns <= maxDays; bodyTurns += 2) {
 			satTurns = Math.ceil(bodyTurns*maxResonance);
 			if (satTurns < minSatTurns)
 				satTurns = minSatTurns;
 			var maxSatTurns = Math.floor(bodyTurns*minResonance);
 			if (maxSatTurns > maxSatTurns*bodyTurns)
 				maxSatTurns = maxSatTurns*bodyTurns;
+			if ((satTurns&1) == 0)
+				satTurns++;
 //			console.log(bodyTurns+": "+satTurns+" -> "+maxSatTurns);
-			for (; !done && satTurns <= maxSatTurns; satTurns++)
+			for (; !done && satTurns <= maxSatTurns; satTurns += 2)
 				if (isPrime(bodyTurns, satTurns)) {
 					orbPeriod = body[cbSideral]*bodyTurns/satTurns;
 					orbAlt = Math.pow(orbPeriod*orbPeriod/4/Math.PI/Math.PI*body[cbGM], 1/3.)-body[cbRadius];
