@@ -49,13 +49,13 @@ function formatTime(period) {
 	var secs = Math.floor((period-days*21600-hours*3600-mins*60)*10)/10;
 	if (secs < 10)
 		secs = '0'+secs;
-	return days+'.'+hours+':'+mins+":"+secs;
+	return (days == 0 ? '' : days+'d ')+hours+':'+mins+":"+secs;
 }
 
 function calcOrbits() {
 	var minOver = 0.1;
 	var limitFOV = 2;
-	var maxInclin = 85/180/Math.PI;
+	var maxInclin = 90/180/Math.PI;
 	var maxDays = 100;
 	var Alt, incPeriod, incAlt;
 	var minScanAlt = 0, maxScanAlt = 100000000;
@@ -75,6 +75,7 @@ function calcOrbits() {
 		if (maxScanAlt > scanner[scanMaxAlt])
 			maxScanAlt = scanner[scanMaxAlt];
 	});
+	$('#celestial tbody').html("");
 	celestialBodies.forEach(function(body, bodyIdx) {
 		if (bodyIdx == 0) // Skip the Sun
 			return;
@@ -110,13 +111,17 @@ function calcOrbits() {
 					if (orbAlt >= minAlt && orbAlt <= maxAlt) {
 						minFOV = totalMaxFOV;
 						scanners.forEach(function(scanner, scanIdx) {
+							if (scanner[scanAvail] == 0)
+								return;
 							var fov = getFOVbyAlt(bodyIdx, scanIdx, orbAlt);
 							if (minFOV > fov)
 								minFOV = fov;
 						});
 						k = 3-(bodyTurns&1)-(satTurns&1);
 						if (minFOV >= limitFOV && minFOV*satTurns*k >= 360*(1+minOver)) {
+							inclinance = Math.acos(orbPeriod/body[cbSideral])/Math.PI*180;
 							console.log(bodyTurns+"/"+satTurns+" : "+orbAlt+" : "+orbPeriod+" : "+minFOV+" : "+(minFOV*satTurns*k)/360+" : "+formatTime(orbPeriod*satTurns));
+							$('#celestial tbody').append("<tr><td>"+body[cbName]+"<td>"+formatFloat(orbAlt, 3)+"<td>"+formatFloat(inclinance, 1)+"<td>"+formatTime(orbPeriod)+"<td>"+formatTime(orbPeriod*satTurns));
 							done = true;
 							break;
 						}
