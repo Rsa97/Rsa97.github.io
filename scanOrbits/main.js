@@ -121,7 +121,7 @@ function calcOrbits() {
 						if (minFOV >= limitFOV && minFOV*satTurns*k >= 360*(1+minOver)) {
 							inclinance = Math.acos(orbPeriod/body[cbSideral])/Math.PI*180;
 							console.log(bodyTurns+"/"+satTurns+" : "+orbAlt+" : "+orbPeriod+" : "+minFOV+" : "+(minFOV*satTurns*k)/360+" : "+formatTime(orbPeriod*satTurns));
-							$('#celestial tbody').append("<tr><td>"+body[cbName]+"<td>"+formatFloat(orbAlt, 3)+"<td>"+formatFloat(inclinance, 1)+"<td>"+formatTime(orbPeriod)+"<td>"+formatTime(orbPeriod*satTurns));
+							$('#celestial tbody').append("<tr><td>"+body[cbName]+"<td>"+bodyTurns+"/"+satTurns+"<td>"+formatFloat(orbAlt, 3)+"<td>"+formatFloat(inclinance, 1)+"<td>"+formatTime(orbPeriod)+"<td>"+formatTime(orbPeriod*satTurns));
 							done = true;
 							break;
 						}

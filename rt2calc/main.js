@@ -266,6 +266,7 @@ function calcFreeTimeOrbit() {
 		$("#freeTimeOrbit").html("Ошибка в параметрах").addClass("error");
 	var freeTimeAltitude = Math.pow(period*period/4/Math.PI/Math.PI*celestialBodies[idx][cbGM], 1/3.)-celestialBodies[idx][cbRadius];
 	$("#freeTimeOrbit").removeClass("empty").removeClass("error").data("alt", 0);
+	console.log(freeTimeAltitude);
 	if (freeTimeAltitude <= 0)
 		$("#freeTimeOrbit").html("Ниже поверхности").addClass("error");
 	else if (freeTimeAltitude < celestialBodies[idx][cbPeak])
