@@ -10,6 +10,7 @@ var scanAvail = 7;
 var scanners = new Array(
 	new Array("SCAN RADAR Altimetry Sensor", 5000,  500000,    5000, 5,   0.5, 1, 1),
 	new Array("SCAN Multispectral Sensor",   5000,  500000,  250000, 4,   0.5, 1, 1),
+	new Array("SCAN Resource Scanner",   	10000,  500000,  150000, 3,   0.5, 1, 1),
 	new Array("SCAN SAR Altimetry Sensor",   5000,  800000,  750000, 2,   0.5, 1, 1),
 	new Array("KE-S210 Compact Survey Unit",    0,  250000, "любая", 2.5, 1.5, 2, 0),
 	new Array("KE-S110 Medium Survey Unit",     0, 1200000, "любая", 2.5, 0.9, 2, 1)
