@@ -143,7 +143,7 @@ $(function() {
 	
 	$("#scanners").on("click", ".btn", function() {
 		var row = $(this).parents("tr");
-		if ($(this).hasClass("unavail")) {
+		if (row.hasClass("unavail")) {
 			row.removeClass("unavail");
 			scanners[row.data("idx")][scanAvail] = 1;
 			$(this).removeClass("btn-danger").addClass("btn-success");
