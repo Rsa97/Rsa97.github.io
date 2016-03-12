@@ -30,13 +30,14 @@ function getFOVbyAlt(celestialBodyIdx, scannerIdx, altitude) {
 		altitude < celestialBodies[celestialBodyIdx][cbPeak] ||
 		altitude > celestialBodies[celestialBodyIdx][cbSOI])
 		return 0.001;
+	var bestAlt = (scanners[scannerIdx][scanBestAlt] < celestialBodies[celestialBodyIdx][cbSOI] ? scanners[scannerIdx][scanBestAlt] : celestialBodies[celestialBodyIdx][cbSOI]);
 	switch (scanners[scannerIdx][scanType]) {
 		case 1: // ScanSat
-			var fov = scanners[scannerIdx][scanFOV]*(altitude < scanners[scannerIdx][scanBestAlt] ? (altitude/scanners[scannerIdx][scanBestAlt]) : 1)*
-					  (celestialBodies[celestialBodyIdx][cbRadius] > 600000 ? 1 : Math.sqrt(600000/celestialBodies[celestialBodyIdx][cbRadius]));
+			var fov = scanners[scannerIdx][scanFOV]*(altitude < bestAlt ? (altitude/bestAlt) : 1)*
+				(celestialBodies[celestialBodyIdx][cbRadius] > 600000 ? 1 : Math.sqrt(600000/celestialBodies[celestialBodyIdx][cbRadius]));
 			if (fov > 20)
 				fov = 20;
-			return Math.floor(fov)+Math.round(fov)+1; 
+			return Math.floor(fov)*2+Math.round(fov-Math.floor(fov))+1; 
 			break;
 		case 2: // Kethane
 			return 2.5;
