@@ -133,7 +133,8 @@ function calcOrbits() {
 
 $(function() {
 	scanners.forEach(function(scanner, idx) {
-		$("#scanners").append('<tr data-idx="'+idx+'"><td><a class="btn btn-xs btn-success" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;</a><td>'+scanner[scanName]+'<td>'+formatFloat(scanner[scanMinAlt], 1)+
+		$("#scanners").append('<tr data-idx="'+idx+'"><td><a class="btn btn-xs '+(scanner[scanAvail] == 1 ? 'btn-success' : 'btn-danger')+
+							 '" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;</a><td>'+scanner[scanName]+'<td>'+formatFloat(scanner[scanMinAlt], 1)+
 							 '<td>'+scanner[scanBestAlt]+'<td>'+scanner[scanMaxAlt]+'<td>'+scanner[scanFOV]);
 	});
 	
