@@ -121,11 +121,11 @@ function calcOrbits() {
 						if (minFOV >= limitFOV && minFOV*satTurns*k >= 360*(1+minOver)) {
 							inclinance = Math.acos(orbPeriod/body[cbSideral])/Math.PI*180;
 //							console.log(bodyTurns+"/"+satTurns+" : "+orbAlt+" : "+orbPeriod+" : "+minFOV+" : "+(minFOV*satTurns*k)/360+" : "+formatTime(orbPeriod*satTurns));
-							var abbr = 'FOV:';
+							var abbr = "FOV:\n";
 							scanners.forEach(function(scanner, scanIdx) {
 								if (scanner[scanAvail] == 1) {
 									var fovtxt = getFOVbyAlt(bodyIdx, scanIdx, orbAlt);
-									abbr += ' '+scanner[scanName]+' : '+formatFloat(fovtxt, 1)+"°\n";
+									abbr += '   '+scanner[scanName]+' : '+formatFloat(fovtxt, 1)+"°\n";
 								}
 							});
 							$('#celestial tbody').append('<tr><td><abbr title="'+abbr+'">'+body[cbName]+'</abbr><td>'+
