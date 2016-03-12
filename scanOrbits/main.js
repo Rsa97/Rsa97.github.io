@@ -133,7 +133,8 @@ function calcOrbits() {
 
 $(function() {
 	scanners.forEach(function(scanner, idx) {
-		$("#scanners").append('<tr data-idx="'+idx+'"><td><a class="btn btn-xs '+(scanner[scanAvail] == 1 ? 'btn-success' : 'btn-danger unavail')+
+		$("#scanners").append('<tr data-idx="'+idx+'"'+(scanner[scanAvail] == 1 ? '' : ' class="unavail"')+'><td><a class="btn btn-xs '+
+							(scanner[scanAvail] == 1 ? 'btn-success' : 'btn-danger')+
 							 '" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;</a><td>'+scanner[scanName]+'<td>'+formatFloat(scanner[scanMinAlt], 1)+
 							 '<td>'+scanner[scanBestAlt]+'<td>'+scanner[scanMaxAlt]+'<td>'+scanner[scanFOV]);
 	});
@@ -142,7 +143,7 @@ $(function() {
 	
 	$("#scanners").on("click", ".btn", function() {
 		var row = $(this).parents("tr");
-		if (row.hasClass("unavail")) {
+		if ($(this).hasClass("unavail")) {
 			row.removeClass("unavail");
 			scanners[row.data("idx")][scanAvail] = 1;
 			$(this).removeClass("btn-danger").addClass("btn-success");
