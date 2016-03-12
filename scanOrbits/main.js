@@ -127,7 +127,7 @@ function calcOrbits() {
 									var fovtxt = getFOVbyAlt(bodyIdx, scanIdx, orbAlt);
 									abbr += scanner[scanName]+' : '+formatFloat(fovtxt, 1)+(abbr == '' ? '' : "\n");
 								}
-							}
+							});
 							$('#celestial tbody').append('<tr><td><abbr title="'+abbr+'">'+body[cbName]+'</abbr><td>'+
 											bodyTurns+'/'+satTurns+'<td>'+formatFloat(orbAlt, 3)+'<td>'+
 											formatFloat(inclinance, 1)+'<td>'+formatTime(orbPeriod)+'<td>'+
