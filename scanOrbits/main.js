@@ -125,7 +125,7 @@ function calcOrbits() {
 							scanners.forEach(function(scanner, scanIdx) {
 								if (scanner[scanAvail] == 1) {
 									var fovtxt = getFOVbyAlt(bodyIdx, scanIdx, orbAlt);
-									abbr += scanner[scanName]+' : '+formatFloat(fovtxt, 1)+(abbr == '' ? '' : "<br>");
+									abbr += scanner[scanName]+' : '+formatFloat(fovtxt, 1)+"\n";
 								}
 							});
 							$('#celestial tbody').append('<tr><td><abbr title="'+abbr+'">'+body[cbName]+'</abbr><td>'+
