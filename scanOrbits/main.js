@@ -120,8 +120,15 @@ function calcOrbits() {
 						k = 3-(bodyTurns&1)-(satTurns&1);
 						if (minFOV >= limitFOV && minFOV*satTurns*k >= 360*(1+minOver)) {
 							inclinance = Math.acos(orbPeriod/body[cbSideral])/Math.PI*180;
-							console.log(bodyTurns+"/"+satTurns+" : "+orbAlt+" : "+orbPeriod+" : "+minFOV+" : "+(minFOV*satTurns*k)/360+" : "+formatTime(orbPeriod*satTurns));
-							$('#celestial tbody').append("<tr><td>"+body[cbName]+"<td>"+bodyTurns+"/"+satTurns+"<td>"+formatFloat(orbAlt, 3)+"<td>"+formatFloat(inclinance, 1)+"<td>"+formatTime(orbPeriod)+"<td>"+formatTime(orbPeriod*satTurns));
+//							console.log(bodyTurns+"/"+satTurns+" : "+orbAlt+" : "+orbPeriod+" : "+minFOV+" : "+(minFOV*satTurns*k)/360+" : "+formatTime(orbPeriod*satTurns));
+							var abbr = '';
+							scanners.forEach(function(scanner, scanIdx) {
+								if (scanner[scanAvail] == 1) {
+									var fovtxt = getFOVbyAlt(bodyIdx, scanIdx, orbAlt);
+									abbr += scanner[scanName]+' : '+formatFloat(fovtxt, 1)+(abbr == '' ? '' : "\n");
+								}
+							}
+							$('#celestial tbody').append("<tr><td><abbr title='"+abbr+"'>"+body[cbName]+"</abbr><td>"+bodyTurns+"/"+satTurns+"<td>"+formatFloat(orbAlt, 3)+"<td>"+formatFloat(inclinance, 1)+"<td>"+formatTime(orbPeriod)+"<td>"+formatTime(orbPeriod*satTurns));
 							done = true;
 							break;
 						}
