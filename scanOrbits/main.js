@@ -105,8 +105,8 @@ function calcOrbits() {
 				satTurns++;
 //			console.log(bodyTurns+": "+satTurns+" -> "+maxSatTurns);
 			for (; !done && satTurns <= maxSatTurns; satTurns += 1) {
-				if (bodyTurns&satTurns&1)
-					continue;
+//				if (bodyTurns&satTurns&1)
+//					continue;
 				if (isPrime(bodyTurns, satTurns)) {
 					orbPeriod = body[cbSideral]*bodyTurns/satTurns;
 					orbAlt = Math.pow(orbPeriod*orbPeriod/4/Math.PI/Math.PI*body[cbGM], 1/3.)-body[cbRadius];
