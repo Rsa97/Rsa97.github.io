@@ -56,7 +56,7 @@ function calcOrbits() {
 	var minOver = 0.1;
 	var limitFOV = 2;
 	var maxInclin = 90/180/Math.PI;
-	var maxDays = 100;
+	var maxDays = 300;
 	var Alt, incPeriod, incAlt;
 	var minScanAlt = 0, maxScanAlt = 100000000;
 	var minResonance, maxResonance;
