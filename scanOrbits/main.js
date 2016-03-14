@@ -56,7 +56,7 @@ function calcOrbits() {
 	var minOver = 0.1;
 	var limitFOV = 2;
 	var maxInclin = 90/180/Math.PI;
-	var maxDays = 300;
+	var maxDays = 100;
 	var Alt, incPeriod, incAlt;
 	var minScanAlt = 0, maxScanAlt = 100000000;
 	var minResonance, maxResonance;
@@ -104,7 +104,9 @@ function calcOrbits() {
 			if ((satTurns&1) == 0)
 				satTurns++;
 //			console.log(bodyTurns+": "+satTurns+" -> "+maxSatTurns);
-			for (; !done && satTurns <= maxSatTurns; satTurns += 2)
+			for (; !done && satTurns <= maxSatTurns; satTurns += 1)
+				if ((bodyTurns&1) && (satTurns&1))
+					continue;
 				if (isPrime(bodyTurns, satTurns)) {
 					orbPeriod = body[cbSideral]*bodyTurns/satTurns;
 					orbAlt = Math.pow(orbPeriod*orbPeriod/4/Math.PI/Math.PI*body[cbGM], 1/3.)-body[cbRadius];
