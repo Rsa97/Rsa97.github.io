@@ -104,8 +104,8 @@ function calcOrbits() {
 			if ((satTurns&1) == 0)
 				satTurns++;
 //			console.log(bodyTurns+": "+satTurns+" -> "+maxSatTurns);
-			for (; !done && satTurns <= maxSatTurns; satTurns += 1)
-				if ((bodyTurns&1) && (satTurns&1))
+			for (; !done && satTurns <= maxSatTurns; satTurns += 1) {
+				if (bodyTurns&satTurns&1)
 					continue;
 				if (isPrime(bodyTurns, satTurns)) {
 					orbPeriod = body[cbSideral]*bodyTurns/satTurns;
@@ -139,6 +139,7 @@ function calcOrbits() {
 						}
 					}
 				}
+			}
 		}
 	}); 
 }
