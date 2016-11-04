@@ -59,7 +59,8 @@ function calcRecomendation() {
 	var numSats = parseInt("0"+$("#satCount").val(), 10);
 	var radius = celestialBodies[idx][cbRadius];
 	if (idx == -1 || orbAltitude <= 0 || numSats <= 0) {
-		$(".result span").html("");		return;
+		$(".result span").html("");
+		return;
 	}
 	// Склонение орбиты, при котором спутник визуально проходит перпендикулярно экватору
 	$("#polarInc").html(orbPeriod > celestialBodies[idx][cbSideral] ? "невозможно" : formatFloat(Math.acos(orbPeriod/celestialBodies[idx][cbSideral])*180/Math.PI, 2)+" °");
@@ -285,8 +286,10 @@ $(function() {
 								'<a href="#">'+body[cbName]+'</a>');
 	});
 	antenns.forEach(function(antenn, idx) {
-		$("#antenns").append('<tr data-idx="'+idx+'"><td><a class="btn btn-xs btn-success" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;</a><td>'+antenn[antName]+'<td>'+formatFloat(antenn[antRadius], 1)+
-							 '<td>'+(antenn[antAngle] == 360 ? 'Всенаправленная' : antenn[antAngle]));
+		$("#antenns").append('<tr data-idx="'+idx+'"><td><a class="btn btn-xs btn-success'+
+				     (0 == antenn[antAvail] ? 'unavail' : '')+'" data-toggle="dropdown" href="#">'+
+				     '&nbsp;&nbsp;&nbsp;</a><td>'+antenn[antName]+'<td>'+formatFloat(antenn[antRadius], 1)+
+				     '<td>'+(antenn[antAngle] == 360 ? 'Всенаправленная' : antenn[antAngle]));
 	});
 	
 	$("#cBodies").on("click", "li", function() {
