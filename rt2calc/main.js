@@ -286,10 +286,11 @@ $(function() {
 								'<a href="#">'+body[cbName]+'</a>');
 	});
 	antenns.forEach(function(antenn, idx) {
-		$("#antenns").append('<tr data-idx="'+idx+'"><td><a class="btn btn-xs btn-success'+
-				     (0 == antenn[antAvail] ? 'unavail' : '')+'" data-toggle="dropdown" href="#">'+
-				     '&nbsp;&nbsp;&nbsp;</a><td>'+antenn[antName]+'<td>'+formatFloat(antenn[antRadius], 1)+
-				     '<td>'+(antenn[antAngle] == 360 ? 'Всенаправленная' : antenn[antAngle]));
+		$("#antenns").append('<tr data-idx="'+idx+'"><td><a class="btn btn-xs '+
+				     (0 == antenn[antAvail] ? 'unavail btn-danger' : 'btn-success')+
+				     '" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;</a><td>'+
+				     antenn[antName]+'<td>'+formatFloat(antenn[antRadius], 1)+'<td>'+
+				     (antenn[antAngle] == 360 ? 'Всенаправленная' : antenn[antAngle]));
 	});
 	
 	$("#cBodies").on("click", "li", function() {
