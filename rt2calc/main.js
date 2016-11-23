@@ -289,14 +289,14 @@ $(function() {
 	antenns.forEach(function(antenn, idx) {
 		$("#antenns").append('<tr data-idx="'+idx+'" class="mod'+antenn[antMod]+'"><td><a class="btn btn-xs '+
 				     (0 == antenn[antAvail] ? 'unavail btn-danger' : 'btn-success')+
-				     '" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;</a><td>'+
+				     '" href="#">&nbsp;&nbsp;&nbsp;</a><td>'+
 				     antenn[antName]+'<td>'+formatFloat(antenn[antRadius], 1)+'<td>'+
 				     (antenn[antAngle] == 360 ? 'Всенаправленная' : antenn[antAngle]));
 	});
 
 	mods.forEach(function(mod) {
 		var avail = 'RT2' == mod[modCode] || localStorage.getItem('mod'+mod[modCode]);
-		$("#mods").append('<li data-mod="'+mod[modCode]+'"><a data-toggle="dropdown"  href="#" class="btn btn-xs '+
+		$("#mods").append('<li data-mod="'+mod[modCode]+'"><a href="#" class="btn btn-xs '+
 				  (avail ? 'btn-success' : 'unavail btn-danger')+
 				  '">&nbsp;&nbsp;&nbsp;</a>&nbsp;&nbsp;'+mod[modName]);
 		if (avail)
