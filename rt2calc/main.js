@@ -287,7 +287,7 @@ $(function() {
 	});
 	
 	antenns.forEach(function(antenn, idx) {
-		$("#antenns").append('<tr data-idx="'+idx+'" class="'+antenn[antMod]+'"><td><a class="btn btn-xs '+
+		$("#antenns").append('<tr data-idx="'+idx+'" class="mod'+antenn[antMod]+'"><td><a class="btn btn-xs '+
 				     (0 == antenn[antAvail] ? 'unavail btn-danger' : 'btn-success')+
 				     '" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;</a><td>'+
 				     antenn[antName]+'<td>'+formatFloat(antenn[antRadius], 1)+'<td>'+
@@ -296,13 +296,27 @@ $(function() {
 
 	mods.forEach(function(mod) {
 		$("#mods").append('<li data-mod="'+mod[modCode]+'"><a data-toggle="dropdown"  href="#" class="btn btn-xs '+
-				  (localStorage.getItem('mod'+mod[modCode]) ? 'btn-success' : 'unavail btn-danger')+ '">&nbsp;&nbsp;&nbsp;</a>'+
-				  mod[modName]);
-		if (localStorage.getItem('mod'+mod[modCode]))
-			$('.'+mod[modCode]).show();
+				  (localStorage.getItem('mod'+mod[modCode]) ? 'btn-success' : 'unavail btn-danger')+
+				  '">&nbsp;&nbsp;&nbsp;</a>&nbsp;&nbsp;'+mod[modName]);
+		if ('RT2' == mod[modCode] || localStorage.getItem('mod'+mod[modCode]))
+			$('.mod'+mod[modCode]).show();
 		else
-			$('.'+mod[modCode]).hide().children('a').removeClass('btn-success').addClass('unavail btn-danger');
+			$('.mod'+mod[modCode]).hide().children('a').removeClass('btn-success').addClass('unavail btn-danger');
 	});
+	
+	$('#mods').on("click", "a", function() {
+		var mod = $(this).parent('li').data('mod');
+		if ('RT2' == mod)
+			return;
+		if ($(this).hasClass('unavail')) {
+			$(this).removeClass('unavail').addClass('btn-success');
+			$('.mod'+mod).show();
+		} else {
+			$(this).removeClass('btn-success').addClass('unavail btn-danger');
+			$('.mod'+mod).hide().children('a').removeClass('btn-success').addClass('unavail btn-danger');
+		}
+		calcOrbitGroup();
+	}
 
 	$("#cBodies").on("click", "li", function() {
 		var idx = $(this).data("idx");
