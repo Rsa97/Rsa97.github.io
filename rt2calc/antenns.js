@@ -11,7 +11,7 @@ var antenns = new Array(
 	new Array("AEIS CommTech DF-2",             1000000, 360,     0, "AEIS", "AntennaDF2"),
 	new Array("FASA LEM Antennas",              1000000, 360,     0, "FASA", "FASALM_Antenna"),
 	new Array("FASA Mercury Antenna Cap",       1500000, 360,     0, "FASA", "FASAMercruyCap2"),
-	new Array("AEIS CommTech ESC-EXP",          2000000, 360,     0, "AEIS", "Antennaesc""),
+	new Array("AEIS CommTech ESC-EXP",          2000000, 360,     0, "AEIS", "Antennaesc"),
 	new Array("Communotron 16",                 2500000, 360,     1, "RT2",  "longAntenna"),
 	new Array("Novapunch Thor Lander RCS",      2500000, 360,     0, "Nova", "NP_ThorLanderRCS"),
 	new Array("CommTech EXP-VR-2T",             3000000, 360,     1, "RT2",  "RTLongAntenna3"),
