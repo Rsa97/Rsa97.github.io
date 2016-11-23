@@ -295,13 +295,13 @@ $(function() {
 	});
 
 	mods.forEach(function(mod) {
-		$("#mods").append('<li data-mod="'+mod[modCode]+'">+<a class="btn btn-xs '+
-				  (localStorage.getItem('mod'+mod[modCode]) ? 'btn-success' : 'unavail btn-danger')+ '"></a>'+
+		$("#mods").append('<li data-mod="'+mod[modCode]+'"><a data-toggle="dropdown"  href="#" class="btn btn-xs '+
+				  (localStorage.getItem('mod'+mod[modCode]) ? 'btn-success' : 'unavail btn-danger')+ '">&nbsp;&nbsp;&nbsp;</a>'+
 				  mod[modName]);
 		if (localStorage.getItem('mod'+mod[modCode]))
 			$('.'+mod[modCode]).show();
 		else
-			$('.'+mod[modCode]).hide().childrens('a').removeClass('btn-success').addClass('unavail btn-danger');
+			$('.'+mod[modCode]).hide().children('a').removeClass('btn-success').addClass('unavail btn-danger');
 	});
 
 	$("#cBodies").on("click", "li", function() {
