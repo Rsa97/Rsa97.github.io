@@ -281,10 +281,6 @@ function calcFreeTimeOrbit() {
 }
 
 $(function() {
-	mods.forEach(function(mod) {
-		$("#mods").append('<li data-mod="'+mods[modCode]+'">+<a class="btn btn-xs unavail btn-danger"> '+mods[modName]);
-	});
-	
 	celestialBodies.forEach(function(body, idx) {
 		$("#cBodies").append('<li data-idx="'+idx+'" class="'+(body[cbParent] == -1 ? 'sun' : (body[cbParent] == 0 ? 'planet' : 'moon'))+'">'+
 								'<a href="#">'+body[cbName]+'</a>');
@@ -297,7 +293,17 @@ $(function() {
 				     antenn[antName]+'<td>'+formatFloat(antenn[antRadius], 1)+'<td>'+
 				     (antenn[antAngle] == 360 ? 'Всенаправленная' : antenn[antAngle]));
 	});
-	
+
+	mods.forEach(function(mod) {
+		$("#mods").append('<li data-mod="'+mod[modCode]+'">+<a class="btn btn-xs '+
+				  (localStorage.getItem('mod'+mod[modCode]) ? 'btn-success' : 'unavail btn-danger"> ')+
+				  mod[modName]);
+		if (localStorage.getItem('mod'+mod[modCode]))
+			$('.'+mod[modCode]).show();
+		else
+			$('.'+mod[modCode]).hide().childrens('a').removeClass('btn-success').addClass('unavail btn-danger');
+	});
+
 	$("#cBodies").on("click", "li", function() {
 		var idx = $(this).data("idx");
 		$("#cBodies").data("idx", idx);
@@ -366,4 +372,5 @@ $(function() {
 	$("#satCount").on("cut", function() { calcRecomendation(); });
 	$("#satCount").on("paste", function() { calcRecomendation(); });
 	$("#satCount").on("change", function() { calcRecomendation(); });
+
 });
