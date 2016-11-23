@@ -2,7 +2,7 @@ var antName = 0;
 var antRadius = 1;
 var antAngle = 2;
 var antAvail = 3;
-var antModule = 4;
+var antMod = 4;
 var antCode = 5;
 var antenns = new Array(
 	new Array("Reflectron DP-10",                500000, 360,     1, "RT2",  "RTShortAntenna1"),
