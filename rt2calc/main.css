@@ -78,3 +78,8 @@ li {
 	font-weight: bold;
 }
 
+#mods {
+	list-style: none;
+	line-height: 2em;
+	font-size: 1.2em;
+}
