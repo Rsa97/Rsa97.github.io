@@ -316,7 +316,7 @@ $(function() {
 			$('.mod'+mod).hide().children('a').removeClass('btn-success').addClass('unavail btn-danger');
 		}
 		calcOrbitGroup();
-	}
+	});
 
 	$("#cBodies").on("click", "li", function() {
 		var idx = $(this).data("idx");
