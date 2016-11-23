@@ -296,11 +296,10 @@ $(function() {
 
 	mods.forEach(function(mod) {
 		var avail = ('RT2' == mod[modCode]) || (localStorage.getItem('mod'+mod[modCode]));
-		console.log(mod[modCode], localStorage.getItem('mod'+mod[modCode]), avail);
 		$("#mods").append('<li data-mod="'+mod[modCode]+'"><a href="#" class="btn btn-xs '+
-				  (avail ? 'btn-success' : 'btn-danger')+
+				  (true == avail ? 'btn-success' : 'btn-danger')+
 				  '">&nbsp;&nbsp;&nbsp;</a>&nbsp;&nbsp;'+mod[modName]);
-		if (avail)
+		if (true == avail)
 			$('.mod'+mod[modCode]).show();
 		else
 			$('.mod'+mod[modCode]).hide().children('a').removeClass('btn-success').addClass('unavail btn-danger');
