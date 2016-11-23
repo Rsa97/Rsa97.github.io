@@ -281,12 +281,17 @@ function calcFreeTimeOrbit() {
 }
 
 $(function() {
+	mods.forEach(function(mod) {
+		$("#mods").append('<li data-mod="'+mods[modCode]+'">+<a class="btn btn-xs unavail btn-danger"> '+mods[modName]);
+	});
+	
 	celestialBodies.forEach(function(body, idx) {
 		$("#cBodies").append('<li data-idx="'+idx+'" class="'+(body[cbParent] == -1 ? 'sun' : (body[cbParent] == 0 ? 'planet' : 'moon'))+'">'+
 								'<a href="#">'+body[cbName]+'</a>');
 	});
+	
 	antenns.forEach(function(antenn, idx) {
-		$("#antenns").append('<tr data-idx="'+idx+'"><td><a class="btn btn-xs '+
+		$("#antenns").append('<tr data-idx="'+idx+'" class="'+antenn[antMod]+'"><td><a class="btn btn-xs '+
 				     (0 == antenn[antAvail] ? 'unavail btn-danger' : 'btn-success')+
 				     '" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;</a><td>'+
 				     antenn[antName]+'<td>'+formatFloat(antenn[antRadius], 1)+'<td>'+
