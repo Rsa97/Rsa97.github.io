@@ -295,10 +295,11 @@ $(function() {
 	});
 
 	mods.forEach(function(mod) {
+		var avail = 'RT2' == mod[modCode] || localStorage.getItem('mod'+mod[modCode]);
 		$("#mods").append('<li data-mod="'+mod[modCode]+'"><a data-toggle="dropdown"  href="#" class="btn btn-xs '+
-				  (localStorage.getItem('mod'+mod[modCode]) ? 'btn-success' : 'unavail btn-danger')+
+				  (avail ? 'btn-success' : 'unavail btn-danger')+
 				  '">&nbsp;&nbsp;&nbsp;</a>&nbsp;&nbsp;'+mod[modName]);
-		if ('RT2' == mod[modCode] || localStorage.getItem('mod'+mod[modCode]))
+		if (avail)
 			$('.mod'+mod[modCode]).show();
 		else
 			$('.mod'+mod[modCode]).hide().children('a').removeClass('btn-success').addClass('unavail btn-danger');
@@ -311,9 +312,11 @@ $(function() {
 		if ($(this).hasClass('unavail')) {
 			$(this).removeClass('unavail').addClass('btn-success');
 			$('.mod'+mod).show();
+			localStorage.setItem('mod'+mod, true);
 		} else {
 			$(this).removeClass('btn-success').addClass('unavail btn-danger');
 			$('.mod'+mod).hide().children('a').removeClass('btn-success').addClass('unavail btn-danger');
+			localStorage.setItem('mod'+mod, false);
 		}
 		calcOrbitGroup();
 	});
