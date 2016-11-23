@@ -52,3 +52,14 @@ var antenns = new Array(
 	new Array("Ven's Communotron 88-X",    500000000000,   0.0065,0, "Ven",  "largeFixedAntenna"),
 	new Array("AEIS CommTech Omega-2G",    600000000000,   0.004, 0, "AEIS", "Dishomega2g")
 );
+
+var modCode = 0;
+var modName = 1;
+var mods = new Array(
+	new Array("RT2", "Remote Tech 2"),
+	new Array("FASA", "Frizzank Aeronautical Space Administration (FASA)"),
+	new Array("AEIS", "Agencia de Investigaciones Espaciales Suprema (AEIS) Aerospace"),
+	new Array("LLL", "Lack Luster Labs"),
+	new Array("Ven", "Ven's Stock Revamp"),
+	new Array("Nova", "Novapunch")
+);
