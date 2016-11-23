@@ -296,7 +296,7 @@ $(function() {
 
 	mods.forEach(function(mod) {
 		$("#mods").append('<li data-mod="'+mod[modCode]+'">+<a class="btn btn-xs '+
-				  (localStorage.getItem('mod'+mod[modCode]) ? 'btn-success' : 'unavail btn-danger"> ')+
+				  (localStorage.getItem('mod'+mod[modCode]) ? 'btn-success' : 'unavail btn-danger')+ '"></a>'+
 				  mod[modName]);
 		if (localStorage.getItem('mod'+mod[modCode]))
 			$('.'+mod[modCode]).show();
