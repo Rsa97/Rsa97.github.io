@@ -295,11 +295,11 @@ $(function() {
 	});
 
 	mods.forEach(function(mod) {
-		var avail = ('RT2' == mod[modCode]) || (localStorage.getItem('mod'+mod[modCode]));
+		var avail = ('RT2' == mod[modCode]) || ('true' == localStorage.getItem('mod'+mod[modCode]));
 		$("#mods").append('<li data-mod="'+mod[modCode]+'"><a href="#" class="btn btn-xs '+
-				  (true == avail ? 'btn-success' : 'btn-danger')+
+				  (avail ? 'btn-success' : 'btn-danger')+
 				  '">&nbsp;&nbsp;&nbsp;</a>&nbsp;&nbsp;'+mod[modName]);
-		if (true == avail)
+		if (avail)
 			$('.mod'+mod[modCode]).show();
 		else
 			$('.mod'+mod[modCode]).hide().children('a').removeClass('btn-success').addClass('unavail btn-danger');
