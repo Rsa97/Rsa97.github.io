@@ -310,7 +310,7 @@ $(function() {
 		if ('RT2' == mod)
 			return;
 		if ($(this).hasClass('unavail')) {
-			$(this).removeClass('unavail').addClass('btn-success');
+			$(this).removeClass('unavail btn-danger').addClass('btn-success');
 			$('.mod'+mod).show();
 			localStorage.setItem('mod'+mod, true);
 		} else {
