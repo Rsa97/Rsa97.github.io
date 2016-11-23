@@ -297,7 +297,7 @@ $(function() {
 	mods.forEach(function(mod) {
 		var avail = 'RT2' == mod[modCode] || localStorage.getItem('mod'+mod[modCode]);
 		$("#mods").append('<li data-mod="'+mod[modCode]+'"><a href="#" class="btn btn-xs '+
-				  (avail ? 'btn-success' : 'unavail btn-danger')+
+				  (avail ? 'btn-success' : 'btn-danger')+
 				  '">&nbsp;&nbsp;&nbsp;</a>&nbsp;&nbsp;'+mod[modName]);
 		if (avail)
 			$('.mod'+mod[modCode]).show();
@@ -309,12 +309,12 @@ $(function() {
 		var mod = $(this).parent('li').data('mod');
 		if ('RT2' == mod)
 			return;
-		if ($(this).hasClass('unavail')) {
-			$(this).removeClass('unavail btn-danger').addClass('btn-success');
+		if ($(this).hasClass('btn-danger')) {
+			$(this).removeClass('btn-danger').addClass('btn-success');
 			$('.mod'+mod).show();
 			localStorage.setItem('mod'+mod, true);
 		} else {
-			$(this).removeClass('btn-success').addClass('unavail btn-danger');
+			$(this).removeClass('btn-success').addClass('btn-danger');
 			$('.mod'+mod).hide().children('a').removeClass('btn-success').addClass('unavail btn-danger');
 			localStorage.setItem('mod'+mod, false);
 		}
