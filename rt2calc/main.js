@@ -295,6 +295,7 @@ $(function() {
 	});
 
 	mods.forEach(function(mod) {
+		console.log(mod[modCode], localStorage.getItem('mod'+mod[modCode]));
 		var avail = ('RT2' == mod[modCode]) || (localStorage.getItem('mod'+mod[modCode]));
 		$("#mods").append('<li data-mod="'+mod[modCode]+'"><a href="#" class="btn btn-xs '+
 				  (avail ? 'btn-success' : 'btn-danger')+
