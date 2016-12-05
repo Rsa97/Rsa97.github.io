@@ -4,6 +4,7 @@ var antAngle = 2;
 var antAvail = 3;
 var antMod = 4;
 var antCode = 5;
+
 var antenns = new Array(
 	new Array("Reflectron DP-10",                500000, 360,     1, "RT2",  "RTShortAntenna1"),
 	new Array("FASA Explorer Probe Core",        500000, 360,     0, "FASA", "FASAExplorerProbe"),
