@@ -287,7 +287,7 @@ $(function() {
 	});
 	
 	antenns.forEach(function(antenn, idx) {
-		$("#antenns").append('<tr data-idx="'+idx+'" class="mod'+antenn.mod+'"><td><a class="btn btn-xs '+
+		$("#antenns").append('<tr data-idx="'+idx+'" class="mod'+antenn.mod+'"><td><a class="btn btn-sm '+
 				     (0 == antenn.avail ? 'unavail btn-danger' : 'btn-success')+
 				     '" href="#">&nbsp;&nbsp;&nbsp;</a><td>'+
 				     antenn.name+'<td>'+formatFloat(antenn.radius, 1)+'<td>'+
@@ -296,7 +296,7 @@ $(function() {
 
 	mods.forEach(function(mod) {
 		var avail = ('RT2' == mod.code) || ('true' == localStorage.getItem('mod'+mod.code));
-		$("#mods").append('<li data-mod="'+mod.code+'"><a href="#" class="btn btn-xs '+
+		$("#mods").append('<li data-mod="'+mod.code+'"><a href="#" class="btn btn-sm'+
 				  (avail ? 'btn-success' : 'btn-danger')+
 				  '">&nbsp;&nbsp;&nbsp;</a>&nbsp;&nbsp;'+mod.name);
 		if (avail)
