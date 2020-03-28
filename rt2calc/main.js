@@ -160,7 +160,7 @@ function calcOrbitGroup() {
 	// Находим максимальную дальность имеющихся антенн
 	var maxRange = 0;
 	antenns.forEach(function(antenn, idx) {
-		if (antenn[antAvail] == 1 && antenn.radius > maxRange)
+		if (antenn.avail == 1 && antenn.radius > maxRange)
 			maxRange = antenn.radius;
 	});
 	// Рассчитывем количество спутников для организации кольца
