@@ -56,5 +56,5 @@ var mods = [
 	{code:"LLL",  name:"Lack Luster Labs"},
 	{code:"Ven",  name:"Ven's Stock Revamp"},
 	{code:"Nova", name:"Novapunch"},
-	{code:"RSP",  name:"ReStock Plus}
+	{code:"RSP",  name:"ReStock Plus"}
 ];
