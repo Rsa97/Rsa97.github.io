@@ -321,7 +321,8 @@ $(function() {
 		calcOrbitGroup();
 	});
 
-	$("#cBodies").on("click", "li", function() {
+	$("#cBodies").on("click", "li", function(e) {
+		e.preventDefault();
 		var idx = $(this).data("idx");
 		$("#cBodies").data("idx", idx);
 		$("#cBody>button").html(celestialBodies[idx].name+' <span class="caret"></span>');
@@ -340,7 +341,8 @@ $(function() {
 		calcFreeTimeOrbit();
 	});
 	
-	$("#antenns").on("click", ".btn", function() {
+	$("#antenns").on("click", ".btn", function(e) {
+		e.preventDefault();
 		var row = $(this).parents("tr");
 		if (row.hasClass("unavail")) {
 			row.removeClass("unavail");
@@ -354,13 +356,15 @@ $(function() {
 		calcOrbitGroup();
 	});
 	
-	$("body").on("click", ".my-show", function() {
+	$("body").on("click", ".my-show", function(e) {
+		e.preventDefault();
 		$($(this).data("element")).removeClass("hide");
 		$(this).removeClass("my-show").addClass("my-hide");
 		$(this).html("▲");
 	});
 
-	$("body").on("click", ".my-hide", function() {
+	$("body").on("click", ".my-hide", function(e) {
+		e.preventDefault();
 		$($(this).data("element")).addClass("hide");
 		$(this).removeClass("my-hide").addClass("my-show");
 		$(this).html("▼");
