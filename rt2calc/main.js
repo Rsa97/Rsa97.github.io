@@ -57,33 +57,33 @@ function calcRecomendation() {
 	var orbPeriod = $("input[name='orbit']:checked").siblings(".orbParam").data("time");
 	var idx = $("#cBodies").data("idx");
 	var numSats = parseInt("0"+$("#satCount").val(), 10);
-	var radius = celestialBodies[idx][cbRadius];
+	var radius = celestialBodies[idx].radius;
 	if (idx == -1 || orbAltitude <= 0 || numSats <= 0) {
 		$(".result span").html("");
 		return;
 	}
 	// Склонение орбиты, при котором спутник визуально проходит перпендикулярно экватору
-	$("#polarInc").html(orbPeriod > celestialBodies[idx][cbSideral] ? "невозможно" : formatFloat(Math.acos(orbPeriod/celestialBodies[idx][cbSideral])*180/Math.PI, 2)+" °");
+	$("#polarInc").html(orbPeriod > celestialBodies[idx].sideral ? "невозможно" : formatFloat(Math.acos(orbPeriod/celestialBodies[idx].sideral)*180/Math.PI, 2)+" °");
 	var maxRange = 0;
 	antenns.forEach(function(antenn, idx) {
-		if (antenn[antAvail] == 1 && antenn[antRadius] > maxRange)
-			maxRange = antenn[antRadius];
+		if (antenn.avail == 1 && antenn.radius > maxRange)
+			maxRange = antenn.radius;
 	});
 	var satAngle, satDist, waitOrbPe, waitOrbTime;
 	var i;
 	if (numSats == 1) {
 		satAngle = 0;
 		satDist = 0;
-		waitOrbPe = celestialBodies[idx][cbPeak]+1000;
-		waitOrbTime = Math.sqrt(Math.pow((orbAltitude+waitOrbPe)/2+radius, 3)*4*Math.PI*Math.PI/celestialBodies[idx][cbGM]);
+		waitOrbPe = celestialBodies[idx].peak+1000;
+		waitOrbTime = Math.sqrt(Math.pow((orbAltitude+waitOrbPe)/2+radius, 3)*4*Math.PI*Math.PI/celestialBodies[idx].gm);
 	} else {
 		satAngle = 2*Math.PI/numSats;
 		satDist = ((radius+orbAltitude)*Math.sin(satAngle/2)*2);
 		for (i = 2; i < 2*numSats; i++) {
 			if (isPrime(i, numSats)) {
 				waitOrbTime = orbPeriod/numSats*i;
-				waitOrbPe =(Math.pow(waitOrbTime*waitOrbTime/4/Math.PI/Math.PI*celestialBodies[idx][cbGM], 1/3.)-radius)*2-orbAltitude;
-				if (waitOrbPe > celestialBodies[idx][cbPeak]+1000)
+				waitOrbPe =(Math.pow(waitOrbTime*waitOrbTime/4/Math.PI/Math.PI*celestialBodies[idx].gm, 1/3.)-radius)*2-orbAltitude;
+				if (waitOrbPe > celestialBodies[idx].peak+1000)
 					break;
 			}			
 		}
@@ -152,7 +152,7 @@ function calcOrbitGroup() {
 		$("#minSatCount, #minGndCount").html("");
 		return;
 	}
-	var radius = celestialBodies[idx][cbRadius];
+	var radius = celestialBodies[idx].radius;
 	var planetAngle = Math.asin(radius/(radius+orbAltitude));
 	$("#planetAngle").html(formatFloat(planetAngle*360/Math.PI, 1)).data("angle", planetAngle);
 	// Смотрим минимальное количество спутников по видимости над горизонтом
@@ -160,8 +160,8 @@ function calcOrbitGroup() {
 	// Находим максимальную дальность имеющихся антенн
 	var maxRange = 0;
 	antenns.forEach(function(antenn, idx) {
-		if (antenn[antAvail] == 1 && antenn[antRadius] > maxRange)
-			maxRange = antenn[antRadius];
+		if (antenn[antAvail] == 1 && antenn.radius > maxRange)
+			maxRange = antenn.radius;
 	});
 	// Рассчитывем количество спутников для организации кольца
 	var n = 0;
@@ -198,14 +198,14 @@ function calcSyncOrbit() {
 	var idx = $("#cBodies").data("idx"); 
 	if (idx == -1)
 		return;
-	var period = celestialBodies[idx][cbSideral];
-	var syncAltitude = Math.pow(period*period/4/Math.PI/Math.PI*celestialBodies[idx][cbGM], 1/3.)-celestialBodies[idx][cbRadius];
+	var period = celestialBodies[idx].sideral;
+	var syncAltitude = Math.pow(period*period/4/Math.PI/Math.PI*celestialBodies[idx].gm, 1/3.)-celestialBodies[idx].radius;
 	$("#syncOrbit").removeClass("empty").removeClass("error").data("alt", 0);
 	if (syncAltitude < 0)
 		$("#syncOrbit").html("Ниже поверхности").addClass("error");
-	else if (syncAltitude < celestialBodies[idx][cbPeak])
+	else if (syncAltitude < celestialBodies[idx].peak)
 		$("#syncOrbit").html("Ниже безопасного уровня").addClass("error");
-	else if (celestialBodies[idx][cbSOI] > 0 && syncAltitude > celestialBodies[idx][cbSOI])
+	else if (celestialBodies[idx].soi > 0 && syncAltitude > celestialBodies[idx].soi)
 		$("#syncOrbit").html("За пределами сферы влияния").addClass("error");
 	else 
 		$("#syncOrbit").html("Высота "+formatFloat(syncAltitude, 3)+" м, период "+formatTime(period)).data("alt", syncAltitude).data("time", period);
@@ -224,13 +224,13 @@ function calcResonantOrbit() {
 		$("#resonOrbit").html("Ошибка в параметрах").addClass("error");
 		return;
 	}
-	var period = celestialBodies[idx][cbSideral]*resFrom/resTo;
-	var resAltitude = Math.pow(period*period/4/Math.PI/Math.PI*celestialBodies[idx][cbGM], 1/3.)-celestialBodies[idx][cbRadius];
+	var period = celestialBodies[idx].sideral*resFrom/resTo;
+	var resAltitude = Math.pow(period*period/4/Math.PI/Math.PI*celestialBodies[idx].gm, 1/3.)-celestialBodies[idx].radius;
 	if (resAltitude < 0)
 		$("#resonOrbit").html("Ниже поверхности").addClass("error");
-	else if (resAltitude < celestialBodies[idx][cbPeak])
+	else if (resAltitude < celestialBodies[idx].peak)
 		$("#resonOrbit").html("Ниже безопасного уровня").addClass("error");
-	else if (celestialBodies[idx][cbSOI] > 0 && resAltitude > celestialBodies[idx][cbSOI])
+	else if (celestialBodies[idx].soi > 0 && resAltitude > celestialBodies[idx].soi)
 		$("#resonOrbit").html("За пределами сферы влияния").addClass("error");
 	else 
 		$("#resonOrbit").html("Высота "+formatFloat(resAltitude, 3)+" м, период "+formatTime(period)).data("alt", resAltitude).data("time", period);
@@ -246,12 +246,12 @@ function calcFreeAltOrbit() {
 	$("#freeAltOrbit").removeClass("empty").removeClass("error").data("alt", 0);
 	if (freeAltitude <= 0)
 		$("#freeAltOrbit").html("Ошибка в параметрах").addClass("error");
-	else if (freeAltitude < celestialBodies[idx][cbPeak])
+	else if (freeAltitude < celestialBodies[idx].peak)
 		$("#freeAltOrbit").html("Ниже безопасного уровня").addClass("error");
-	else if (celestialBodies[idx][cbSOI] > 0 && freeAltitude > celestialBodies[idx][cbSOI])
+	else if (celestialBodies[idx].soi > 0 && freeAltitude > celestialBodies[idx].soi)
 		$("#freeAltOrbit").html("За пределами сферы влияния").addClass("error");
 	else {
-		var period = Math.sqrt(Math.pow(freeAltitude+celestialBodies[idx][cbRadius], 3)*4*Math.PI*Math.PI/celestialBodies[idx][cbGM]); 
+		var period = Math.sqrt(Math.pow(freeAltitude+celestialBodies[idx].radius, 3)*4*Math.PI*Math.PI/celestialBodies[idx].gm); 
 		$("#freeAltOrbit").html("Высота "+formatFloat(freeAltitude, 3)+" м, период "+formatTime(period)).data("alt", freeAltitude).data("time", period);
 	}
 	if ($("#orb2").prop("checked"))
@@ -265,14 +265,14 @@ function calcFreeTimeOrbit() {
 	var period = parseFloat("0"+$("#freeTime").val().trim());
 	if (period <= 0)
 		$("#freeTimeOrbit").html("Ошибка в параметрах").addClass("error");
-	var freeTimeAltitude = Math.pow(period*period/4/Math.PI/Math.PI*celestialBodies[idx][cbGM], 1/3.)-celestialBodies[idx][cbRadius];
+	var freeTimeAltitude = Math.pow(period*period/4/Math.PI/Math.PI*celestialBodies[idx].gm, 1/3.)-celestialBodies[idx].radius;
 	$("#freeTimeOrbit").removeClass("empty").removeClass("error").data("alt", 0);
 	console.log(freeTimeAltitude);
 	if (freeTimeAltitude <= 0)
 		$("#freeTimeOrbit").html("Ниже поверхности").addClass("error");
-	else if (freeTimeAltitude < celestialBodies[idx][cbPeak])
+	else if (freeTimeAltitude < celestialBodies[idx].peak)
 		$("#freeTimeOrbit").html("Ниже безопасного уровня").addClass("error");
-	else if (celestialBodies[idx][cbSOI] > 0 && freeTimeAltitude > celestialBodies[idx][cbSOI])
+	else if (celestialBodies[idx].soi > 0 && freeTimeAltitude > celestialBodies[idx].soi)
 		$("#freeTimeOrbit").html("За пределами сферы влияния").addClass("error");
 	else 
 		$("#freeTimeOrbit").html("Высота "+formatFloat(freeTimeAltitude, 3)+" м, период "+formatTime(period)).data("alt", freeTimeAltitude).data("time", period);
@@ -282,27 +282,27 @@ function calcFreeTimeOrbit() {
 
 $(function() {
 	celestialBodies.forEach(function(body, idx) {
-		$("#cBodies").append('<li data-idx="'+idx+'" class="'+(body[cbParent] == -1 ? 'sun' : (body[cbParent] == 0 ? 'planet' : 'moon'))+'">'+
-								'<a href="#">'+body[cbName]+'</a>');
+		$("#cBodies").append('<li data-idx="'+idx+'" class="'+(body.parent == -1 ? 'sun' : (body.parent == 0 ? 'planet' : 'moon'))+'">'+
+								'<a href="#">'+body.name+'</a>');
 	});
 	
 	antenns.forEach(function(antenn, idx) {
-		$("#antenns").append('<tr data-idx="'+idx+'" class="mod'+antenn[antMod]+'"><td><a class="btn btn-xs '+
-				     (0 == antenn[antAvail] ? 'unavail btn-danger' : 'btn-success')+
+		$("#antenns").append('<tr data-idx="'+idx+'" class="mod'+antenn.mod+'"><td><a class="btn btn-xs '+
+				     (0 == antenn.avail ? 'unavail btn-danger' : 'btn-success')+
 				     '" href="#">&nbsp;&nbsp;&nbsp;</a><td>'+
-				     antenn[antName]+'<td>'+formatFloat(antenn[antRadius], 1)+'<td>'+
-				     (antenn[antAngle] == 360 ? 'Всенаправленная' : antenn[antAngle]));
+				     antenn.name+'<td>'+formatFloat(antenn.radius, 1)+'<td>'+
+				     (antenn.angle == 360 ? 'Всенаправленная' : antenn.angle));
 	});
 
 	mods.forEach(function(mod) {
-		var avail = ('RT2' == mod[modCode]) || ('true' == localStorage.getItem('mod'+mod[modCode]));
-		$("#mods").append('<li data-mod="'+mod[modCode]+'"><a href="#" class="btn btn-xs '+
+		var avail = ('RT2' == mod.code) || ('true' == localStorage.getItem('mod'+mod.code));
+		$("#mods").append('<li data-mod="'+mod.code+'"><a href="#" class="btn btn-xs '+
 				  (avail ? 'btn-success' : 'btn-danger')+
-				  '">&nbsp;&nbsp;&nbsp;</a>&nbsp;&nbsp;'+mod[modName]);
+				  '">&nbsp;&nbsp;&nbsp;</a>&nbsp;&nbsp;'+mod.name);
 		if (avail)
-			$('.mod'+mod[modCode]).show();
+			$('.mod'+mod.code).show();
 		else
-			$('.mod'+mod[modCode]).hide().children('a').removeClass('btn-success').addClass('unavail btn-danger');
+			$('.mod'+mod.code).hide().children('a').removeClass('btn-success').addClass('unavail btn-danger');
 	});
 	
 	$('#mods').on("click", "a", function() {
@@ -324,15 +324,15 @@ $(function() {
 	$("#cBodies").on("click", "li", function() {
 		var idx = $(this).data("idx");
 		$("#cBodies").data("idx", idx);
-		$("#cBody>button").html(celestialBodies[idx][cbName]+' <span class="caret"></span>');
-		$("#cbRadius").html(formatFloat(celestialBodies[idx][cbRadius], 3));
-		var mass = celestialBodies[idx][cbMass];
+		$("#cBody>button").html(celestialBodies[idx].name+' <span class="caret"></span>');
+		$("#cbRadius").html(formatFloat(celestialBodies[idx].radius, 3));
+		var mass = celestialBodies[idx].mass;
 		massExp = Math.floor(Math.log10(mass));
 		mass = ''+(mass/Math.pow(10, massExp));
 		$("#cbMass").html(Math.floor(mass*10000000)/10000000+'×10<sup>'+massExp+'</sup>');
-		var period = celestialBodies[idx][cbSideral];
+		var period = celestialBodies[idx].sideral;
 		$("#cbSideral").html(formatFloat(period, 3)+' с ('+formatTime(period)+')');
-		var soi = celestialBodies[idx][cbSOI];
+		var soi = celestialBodies[idx].soi;
 		$("#cbSOI").html(soi == -1 ? '∞' : formatFloat(soi, 1));
 		calcSyncOrbit();
 		calcResonantOrbit();
@@ -344,11 +344,11 @@ $(function() {
 		var row = $(this).parents("tr");
 		if (row.hasClass("unavail")) {
 			row.removeClass("unavail");
-			antenns[row.data("idx")][antAvail] = 1;
+			antenns[row.data("idx")].avail = 1;
 			$(this).removeClass("btn-danger").addClass("btn-success");
 		} else {
 			row.addClass("unavail");
-			antenns[row.data("idx")][antAvail] = 0;
+			antenns[row.data("idx")].avail = 0;
 			$(this).removeClass("btn-success").addClass("btn-danger");
 		}
 		calcOrbitGroup();
