@@ -49,8 +49,6 @@ var antenns = [
 	{name:"AEIS CommTech Omega-2G",        radius:600000000000, angle:  0.004, avail:0, mod:"AEIS", code:"Dishomega2g"}
 ];
 
-var modCode = 0;
-var modName = 1;
 var mods = [
 	{code:"RT2",  name:"Remote Tech 2"},
 	{code:"FASA", name:"Frizzank Aeronautical Space Administration (FASA)"},
