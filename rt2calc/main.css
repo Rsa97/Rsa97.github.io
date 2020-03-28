@@ -43,6 +43,11 @@ li {
 	text-align: right;
 }
 
+#cBodies a {
+	color: black;
+	text-decoration: none;
+}
+
 .sun>a{
 	font-weight: bold !important;
 }
