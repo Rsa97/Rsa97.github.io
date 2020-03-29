@@ -7,34 +7,32 @@ var scanPeriod = 5;
 var scanType = 6;
 var scanAvail = 7;
 
-var scanners = new Array(
-	new Array("SCAN RADAR Altimetry Sensor",				 5000,  500000,    5000, 5,   0.5, 1, 1),
-	new Array("SCAN Multispectral Sensor",					 5000,  500000,  250000, 4,   0.5, 1, 0),
-	new Array("SCAN SAR Altimetry Sensor",					 5000,  800000,  750000, 2,   0.5, 1, 0),
-	new Array("M700 Survay Scanner (stock disabled)",			15000, 1000000,  150000, 5,   0.5, 1, 0),
-	new Array("M4435 Narrow-Band Scanner (stock disabled)",			10000,  500000,  150000, 3,   0.5, 1, 0),
-	new Array("BG-MGN Magnetometer (Extraplanetary Launchpads)",		10000,   71000,   65000, 2,   0.5, 1, 0),
-	new Array("BG-OMD2 Orbital Mass Detector (Extraplanetary Launchpads)",	10000,  500000,  200000, 3,   0.5, 1, 0),
-	new Array("Planetary Survey Camera (USI Kolonization Systems)",		10000,  500000,  150000, 3,   0.5, 1, 0),
-	new Array("KA-100 Detection Array (Karbonite)",				10000,  500000,  150000, 3,   0.5, 1, 0)
-//	new Array("KE-S210 Compact Survey Unit",    0,  250000, "любая", 2.5, 1.5, 2, 0),
-//	new Array("KE-S110 Medium Survey Unit",     0, 1200000, "любая", 2.5, 0.9, 2, 1)
-);
+var scanners = [
+	{name:"SCAN RADAR Altimetry Sensor",                               minAlt: 5000, maxAlt: 500000, bestAlt:  5000, fov:5, period:0.5, type:1, avail:1},
+	{name:"SCAN Multispectral Sensor",                                 minAlt: 5000, maxAlt: 500000, bestAlt:250000, fov:4, period:0.5, type:1, avail:0},
+	{name:"SCAN SAR Altimetry Sensor",                                 minAlt: 5000, maxAlt: 800000, bestAlt:750000, fov:2, period:0.5, type:1, avail:0},
+	{name:"M700 Survay Scanner (stock disabled)",                      minAlt:15000, maxAlt:1000000, bestAlt:150000, fov:5, period:0.5, type:1, avail:0},
+	{name:"M4435 Narrow-Band Scanner (stock disabled)",                minAlt:10000, maxAlt: 500000, bestAlt:150000, fov:3, period:0.5, type:1, avail:0},
+	{name:"BG-MGN Magnetometer (Extraplanetary Launchpads)",           minAlt:10000, maxAlt:  71000, bestAlt: 65000, fov:2, period:0.5, type:1, avail:0},
+	{name:"BG-OMD2 Orbital Mass Detector (Extraplanetary Launchpads)", minAlt:10000, maxAlt: 500000, bestAlt:200000, fov:3, period:0.5, type:1, avail:0},
+	{name:"Planetary Survey Camera (USI Kolonization Systems)",        minAlt:10000, maxAlt: 500000, bestAlt:150000, fov:3, period:0.5, type:1, avail:0},
+	{name:"KA-100 Detection Array (Karbonite)",                        minAlt:10000, maxAlt: 500000, bestAlt:150000, fov:3, period:0.5, type:1, avail:0}
+];
 
 var totalMaxFOV = 41;
 var totalMinFOV = 1;
 
 function getFOVbyAlt(celestialBodyIdx, scannerIdx, altitude) {
-	if (altitude < scanners[scannerIdx][scanMinAlt] || 
-		altitude > scanners[scannerIdx][scanMaxAlt] ||
-		altitude < celestialBodies[celestialBodyIdx][cbPeak] ||
-		altitude > celestialBodies[celestialBodyIdx][cbSOI])
+	if (altitude < scanners[scannerIdx].minAlt || 
+		altitude > scanners[scannerIdx].maxAlt ||
+		altitude < celestialBodies[celestialBodyIdx].peak ||
+		altitude > celestialBodies[celestialBodyIdx].soi)
 		return 0.001;
-	var bestAlt = (scanners[scannerIdx][scanBestAlt] < celestialBodies[celestialBodyIdx][cbSOI] ? scanners[scannerIdx][scanBestAlt] : celestialBodies[celestialBodyIdx][cbSOI]);
-	switch (scanners[scannerIdx][scanType]) {
+	var bestAlt = (scanners[scannerIdx].bestAlt < celestialBodies[celestialBodyIdx].soi ? scanners[scannerIdx].bestAlt : celestialBodies[celestialBodyIdx].soi);
+	switch (scanners[scannerIdx].type) {
 		case 1: // ScanSat
-			var fov = scanners[scannerIdx][scanFOV]*(altitude < bestAlt ? (altitude/bestAlt) : 1)*
-				(celestialBodies[celestialBodyIdx][cbRadius] > 600000 ? 1 : Math.sqrt(600000/celestialBodies[celestialBodyIdx][cbRadius]));
+			var fov = scanners[scannerIdx].fov*(altitude < bestAlt ? (altitude/bestAlt) : 1)*
+				(celestialBodies[celestialBodyIdx].radius > 600000 ? 1 : Math.sqrt(600000/celestialBodies[celestialBodyIdx].radius));
 			if (fov > 20)
 				fov = 20;
 			return Math.floor(fov)*2+Math.round(fov-Math.floor(fov))+1; 
