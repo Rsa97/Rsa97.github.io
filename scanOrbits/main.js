@@ -131,7 +131,7 @@ function calcOrbits() {
 									abbr += '   '+scanner.name+' : '+formatFloat(fovtxt, 1)+"°\n";
 								}
 							});
-							$('#celestial tbody').append('<tr><td><abbr title="'+abbr+'">'+body.sideral+'</abbr><td>'+
+							$('#celestial tbody').append('<tr><td><abbr title="'+abbr+'">'+body.name+'</abbr><td>'+
 											bodyTurns+'/'+satTurns+'<td>'+formatFloat(orbAlt, 3)+'<td>'+
 											formatFloat(inclinance, 1)+'<td>'+formatTime(orbPeriod)+'<td>'+
 											formatTime(orbPeriod*satTurns));
