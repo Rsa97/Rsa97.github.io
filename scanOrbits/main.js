@@ -149,7 +149,7 @@ $(function() {
 	scanners.forEach(function(scanner, idx) {
 		$("#scanners").append('<tr data-idx="'+idx+'"'+(scanner.avail == 1 ? '' : ' class="unavail"')+'><td><a class="btn btn-sm '+
 							(scanner.avail == 1 ? 'btn-success' : 'btn-danger')+
-							 '" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;</a><td>'+scanner.name+'<td>'+formatFloat(scanner.minAlt, 1)+
+							 '" href="#">&nbsp;&nbsp;&nbsp;</a><td>'+scanner.name+'<td>'+formatFloat(scanner.minAlt, 1)+
 							 '<td>'+scanner.bestAlt+'<td>'+scanner.maxAlt+'<td>'+scanner.fov);
 	});
 	
