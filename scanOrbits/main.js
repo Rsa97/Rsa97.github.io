@@ -68,31 +68,32 @@ function calcOrbits() {
 	var orbPeriod, orbAlt;
 	var done;
 	scanners.forEach(function(scanner, idx) {
-		if (scanner[scanAvail] == 0)
+		if (scanner.avail == 0)
 			return;
-		if (minScanAlt < scanner[scanMinAlt])
-			minScanAlt = scanner[scanMinAlt];
-		if (maxScanAlt > scanner[scanMaxAlt])
-			maxScanAlt = scanner[scanMaxAlt];
+		if (minScanAlt < scanner.minAlt)
+			minScanAlt = scanner.minAlt;
+		if (maxScanAlt > scanner.maxAlt)
+			maxScanAlt = scanner.maxAlt;
 	});
 	$('#celestial tbody').html("");
 	celestialBodies.forEach(function(body, bodyIdx) {
 		if (bodyIdx == 0) // Skip the Sun
 			return;
 		minAlt = minScanAlt;
-		if (minAlt < body[cbPeak]+1000)
-			minAlt = body[cbPeak]+1000;
+		if (minAlt < body.peak+1000)
+			minAlt = body.peak+1000;
 		maxAlt = maxScanAlt;
-		if (maxAlt > body[cbSOI])
-			maxAlt = body[cbSOI];
-		incPeriod = Math.cos(maxInclin)*body[cbSideral];
-		incAlt = Math.pow(incPeriod*incPeriod/4/Math.PI/Math.PI*body[cbGM], 1/3.)-body[cbRadius];
+		if (maxAlt > body.soi)
+			maxAlt = body.soi;
+		incPeriod = Math.cos(maxInclin)*body.sideral;
+		incAlt = Math.pow(incPeriod*incPeriod/4/Math.PI/Math.PI*body.gm, 1/3.)-body.radius;
 		if (maxAlt > incAlt)
 			maxAlt = incAlt;
-		minResonance = body[cbSideral]/(Math.sqrt(Math.pow(minAlt+body[cbRadius], 3)/body[cbGM])*2*Math.PI);
-		maxResonance = body[cbSideral]/(Math.sqrt(Math.pow(maxAlt+body[cbRadius], 3)/body[cbGM])*2*Math.PI);
-		console.log(body[cbName]+" : "+minAlt+" ("+Math.sqrt(Math.pow(minAlt+body[cbRadius], 3)/body[cbGM])*2*Math.PI+") : "+
-									   maxAlt+" ("+Math.sqrt(Math.pow(maxAlt+body[cbRadius], 3)/body[cbGM])*2*Math.PI+") : "+minResonance+" : "+maxResonance);
+		minResonance = body.sideral/(Math.sqrt(Math.pow(minAlt+body.radius, 3)/body.gm)*2*Math.PI);
+		maxResonance = body.sideral/(Math.sqrt(Math.pow(maxAlt+body.radius, 3)/body.gm)*2*Math.PI);
+		console.log(body.name+" : "+minAlt+" ("+Math.sqrt(Math.pow(minAlt+body.radius, 3)/body.gm)*2*Math.PI+") : "
+			                   +maxAlt+" ("+Math.sqrt(Math.pow(maxAlt+body.radius, 3)/body.gm)*2*Math.PI+") : "
+			                   +minResonance+" : "+maxResonance);
 		minTime = -1;
 		for (done = false, bodyTurns = 1; !done && bodyTurns <= maxDays; bodyTurns += 2) {
 			satTurns = Math.ceil(bodyTurns*maxResonance);
@@ -108,12 +109,12 @@ function calcOrbits() {
 //				if (bodyTurns&satTurns&1)
 //					continue;
 				if (isPrime(bodyTurns, satTurns)) {
-					orbPeriod = body[cbSideral]*bodyTurns/satTurns;
-					orbAlt = Math.pow(orbPeriod*orbPeriod/4/Math.PI/Math.PI*body[cbGM], 1/3.)-body[cbRadius];
+					orbPeriod = body.sideral*bodyTurns/satTurns;
+					orbAlt = Math.pow(orbPeriod*orbPeriod/4/Math.PI/Math.PI*body.gm, 1/3.)-body.radius;
 					if (orbAlt >= minAlt && orbAlt <= maxAlt) {
 						minFOV = totalMaxFOV;
 						scanners.forEach(function(scanner, scanIdx) {
-							if (scanner[scanAvail] == 0)
+							if (scanner.avail == 0)
 								return;
 							var fov = getFOVbyAlt(bodyIdx, scanIdx, orbAlt);
 							if (minFOV > fov)
@@ -121,16 +122,16 @@ function calcOrbits() {
 						});
 						k = 3-(bodyTurns&1)-(satTurns&1);
 						if (minFOV >= limitFOV && minFOV*satTurns*k >= 360*(1+minOver)) {
-							inclinance = Math.acos(orbPeriod/body[cbSideral])/Math.PI*180;
+							inclinance = Math.acos(orbPeriod/body.sideral)/Math.PI*180;
 //							console.log(bodyTurns+"/"+satTurns+" : "+orbAlt+" : "+orbPeriod+" : "+minFOV+" : "+(minFOV*satTurns*k)/360+" : "+formatTime(orbPeriod*satTurns));
 							var abbr = "FOV:\n";
 							scanners.forEach(function(scanner, scanIdx) {
-								if (scanner[scanAvail] == 1) {
+								if (scanner.avail == 1) {
 									var fovtxt = getFOVbyAlt(bodyIdx, scanIdx, orbAlt);
-									abbr += '   '+scanner[scanName]+' : '+formatFloat(fovtxt, 1)+"°\n";
+									abbr += '   '+scanner.name+' : '+formatFloat(fovtxt, 1)+"°\n";
 								}
 							});
-							$('#celestial tbody').append('<tr><td><abbr title="'+abbr+'">'+body[cbName]+'</abbr><td>'+
+							$('#celestial tbody').append('<tr><td><abbr title="'+abbr+'">'+body.sideral+'</abbr><td>'+
 											bodyTurns+'/'+satTurns+'<td>'+formatFloat(orbAlt, 3)+'<td>'+
 											formatFloat(inclinance, 1)+'<td>'+formatTime(orbPeriod)+'<td>'+
 											formatTime(orbPeriod*satTurns));
@@ -146,23 +147,24 @@ function calcOrbits() {
 
 $(function() {
 	scanners.forEach(function(scanner, idx) {
-		$("#scanners").append('<tr data-idx="'+idx+'"'+(scanner[scanAvail] == 1 ? '' : ' class="unavail"')+'><td><a class="btn btn-xs '+
-							(scanner[scanAvail] == 1 ? 'btn-success' : 'btn-danger')+
-							 '" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;</a><td>'+scanner[scanName]+'<td>'+formatFloat(scanner[scanMinAlt], 1)+
-							 '<td>'+scanner[scanBestAlt]+'<td>'+scanner[scanMaxAlt]+'<td>'+scanner[scanFOV]);
+		$("#scanners").append('<tr data-idx="'+idx+'"'+(scanner.avail == 1 ? '' : ' class="unavail"')+'><td><a class="btn btn-sm '+
+							(scanner.avail == 1 ? 'btn-success' : 'btn-danger')+
+							 '" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;</a><td>'+scanner.name+'<td>'+formatFloat(scanner.minAlt, 1)+
+							 '<td>'+scanner.bestAlt+'<td>'+scanner.maxAlt+'<td>'+scanner.fov);
 	});
 	
 	calcOrbits();
 	
-	$("#scanners").on("click", ".btn", function() {
+	$("#scanners").on("click", ".btn", function(e) {
+		e.preventDefault();
 		var row = $(this).parents("tr");
 		if (row.hasClass("unavail")) {
 			row.removeClass("unavail");
-			scanners[row.data("idx")][scanAvail] = 1;
+			scanners[row.data("idx")].avail = 1;
 			$(this).removeClass("btn-danger").addClass("btn-success");
 		} else {
 			row.addClass("unavail");
-			scanners[row.data("idx")][scanAvail] = 0;
+			scanners[row.data("idx")].avail = 0;
 			$(this).removeClass("btn-success").addClass("btn-danger");
 		}
 		setInterval(calcOrbits(), 100);
