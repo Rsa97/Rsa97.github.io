@@ -20,7 +20,7 @@ var totalMinFOV = 1;
 function getFOVbyAlt(celestialBodyIdx, scannerIdx, altitude) {
 	maxAlt = (scanners[scannerIdx].maxAlt === 'lowOrbit' 
 	       ? celestialBodies[celestialBodyIdx].lowOrbit
-	       : scanners[scannerIdx].maxAlt;
+	       : scanners[scannerIdx].maxAlt);
 	if (altitude < scanners[scannerIdx].minAlt || 
 		altitude > maxAlt ||
 		altitude < celestialBodies[celestialBodyIdx].peak ||
