@@ -73,7 +73,7 @@ function calcOrbits() {
 			return;
 		if (minScanAlt < scanner.minAlt)
 			minScanAlt = scanner.minAlt;
-		if (scanner.maxAlt !== 'lowOrbit && maxScanAlt > scanner.maxAlt)
+		if (scanner.maxAlt !== 'lowOrbit' && maxScanAlt > scanner.maxAlt)
 			maxScanAlt = scanner.maxAlt;
 		if (scanner.maxAlt === 'lowOrbit')
 			lowOrbit = true;
