@@ -67,13 +67,16 @@ function calcOrbits() {
 	var minFOV, k;
 	var orbPeriod, orbAlt;
 	var done;
+	var lowOrbit = false;
 	scanners.forEach(function(scanner, idx) {
 		if (scanner.avail == 0)
 			return;
 		if (minScanAlt < scanner.minAlt)
 			minScanAlt = scanner.minAlt;
-		if (maxScanAlt > scanner.maxAlt)
+		if (scanner.maxAlt !== 'lowOrbit && maxScanAlt > scanner.maxAlt)
 			maxScanAlt = scanner.maxAlt;
+		if (scanner.maxAlt === 'lowOrbit')
+			lowOrbit = true;
 	});
 	$('#celestial tbody').html("");
 	celestialBodies.forEach(function(body, bodyIdx) {
@@ -83,6 +86,9 @@ function calcOrbits() {
 		if (minAlt < body.peak+1000)
 			minAlt = body.peak+1000;
 		maxAlt = maxScanAlt;
+		if (lowOrbit) {
+			maxAlt = body.lowOrbit;
+		}
 		if (maxAlt > body.soi)
 			maxAlt = body.soi;
 		incPeriod = Math.cos(maxInclin)*body.sideral;
