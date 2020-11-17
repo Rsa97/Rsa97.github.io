@@ -23,6 +23,33 @@ var scanners = [
 	{name:"Soil Moisture Sensor (DMagic Orbital Science)",             minAlt: 50000, maxAlt: 500000, bestAlt:250000, fov:3,   avail:0, type:8192},
 ];
 
+var scannerTypes = {
+	   1: "Lo-Res Altimetry",
+   	   2: "Hi-Res Altimetry",
+	   4: "Lo-Res Visual",
+	   8: "Biome",
+	  16: "Anomalies",
+	  32: "Anomaly Details",
+	  64: "Hi-Res Visual",
+	 128: "Lo-Res Resources",
+	 256: "Hi-Res Resources",
+	 512: "?",
+	1024: "?",
+	2048: "?",
+	4096: "?",
+	8192: "Water",
+};
+
+function scannerTypeString(type) {
+	var result = "";
+	for (var i = 1; i <= 8192; i *= 2) {
+		if (type & i) {
+			result += (result === "" ? "" : ", ") + scannerTypes[i];
+		}
+	}
+	return result;
+}
+
 var totalMaxFOV = 41;
 var totalMinFOV = 1;
 
