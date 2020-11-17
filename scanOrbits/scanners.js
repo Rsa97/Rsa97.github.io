@@ -40,7 +40,7 @@ var scannerTypes = {
 	8192: "Water",
 };
 
-function scannerTypeString(type) {
+function sensorTypeString(type) {
 	var result = "";
 	for (var i = 1; i <= 8192; i *= 2) {
 		if (type & i) {
