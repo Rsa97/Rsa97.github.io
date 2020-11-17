@@ -156,7 +156,7 @@ $(function() {
 		$("#scanners").append('<tr data-idx="'+idx+'"'+(scanner.avail == 1 ? '' : ' class="unavail"')+'><td><a class="btn btn-sm '+
 							(scanner.avail == 1 ? 'btn-success' : 'btn-danger')+
 							 '" href="#">&nbsp;&nbsp;&nbsp;</a><td>'+scanner.name+'<td>'+formatFloat(scanner.minAlt, 1)+
-							 '<td>'+scanner.bestAlt+'<td>'+scanner.maxAlt+'<td>'+scanner.fov);
+							 '<td>'+formatFloat(scanner.bestAlt)+'<td>'+formatFloat(scanner.maxAlt)+'<td>'+scanner.fov);
 	});
 	
 	calcOrbits();
