@@ -54,17 +54,19 @@ var totalMaxFOV = 41;
 var totalMinFOV = 1;
 
 function getFOVbyAlt(celestialBodyIdx, scannerIdx, altitude) {
-	maxAlt = (scanners[scannerIdx].maxAlt === 'lowOrbit' 
+	var maxAlt = (scanners[scannerIdx].maxAlt === 'lowOrbit' 
 	       ? celestialBodies[celestialBodyIdx].lowOrbit
 	       : scanners[scannerIdx].maxAlt);
 	if (altitude < scanners[scannerIdx].minAlt || 
 		altitude > maxAlt ||
 		altitude < celestialBodies[celestialBodyIdx].peak ||
-		altitude > celestialBodies[celestialBodyIdx].soi)
+		altitude > (celestialBodies[celestialBodyIdx].soi - celestialBodies[celestialBodyIdx].radius))
 		return 0.001;
-	var bestAlt = (scanners[scannerIdx].bestAlt < celestialBodies[celestialBodyIdx].soi ? scanners[scannerIdx].bestAlt : celestialBodies[celestialBodyIdx].soi);
-	var fov = scanners[scannerIdx].fov*(altitude < bestAlt ? (altitude/bestAlt) : 1)
-		*(celestialBodies[celestialBodyIdx].radius > 600000 ? 1 : Math.sqrt(600000/celestialBodies[celestialBodyIdx].radius));
+	var bestAlt = (scanners[scannerIdx].bestAlt < celestialBodies[celestialBodyIdx].soi
+		? scanners[scannerIdx].bestAlt
+		: celestialBodies[celestialBodyIdx].soi);
+	var fov = scanners[scannerIdx].fov * (altitude < bestAlt ? (altitude/bestAlt) : 1)
+		* (celestialBodies[celestialBodyIdx].radius > 600000 ? 1 : Math.sqrt(600000/celestialBodies[celestialBodyIdx].radius));
 	if (fov > 20) {
 		fov = 20;
 	}
