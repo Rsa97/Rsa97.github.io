@@ -130,7 +130,7 @@ function calcOrbits() {
 						if (minFOV >= limitFOV && minFOV*satTurns*k >= 360*(1+minOver)) {
 							inclinance = Math.acos(orbPeriod/body.sideral)/Math.PI*180;
 //							console.log(bodyTurns+"/"+satTurns+" : "+orbAlt+" : "+orbPeriod+" : "+minFOV+" : "+(minFOV*satTurns*k)/360+" : "+formatTime(orbPeriod*satTurns));
-							var abbr = "FOV:\n";
+							var abbr = "Полоса:\n";
 							scanners.forEach(function(scanner, scanIdx) {
 								if (scanner.avail == 1) {
 									var fovtxt = getFOVbyAlt(bodyIdx, scanIdx, orbAlt);
