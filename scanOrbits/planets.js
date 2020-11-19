@@ -22,3 +22,5 @@ var celestialBodies = [
 	{name:"Pol",    radius:    44000, sideral: 901902.62,  mass:1.0813636e19, soi:   1042138.9 , lowOrbit: 21000, peak:  5591, ap:   210624206, pe:  149155794, gm:7.2170208e08, parent:10}, // 15
 	{name:"Eeloo",  radius:   210000, sideral:  19460,     mass:1.1149358e21, soi: 119082940,    lowOrbit: 60000, peak:  3874, ap:113549713200, pe:66687926800, gm:7.4410815e10, parent: 0}  // 16
 ];
+
+var homeWorldIdx = 4;
