@@ -65,8 +65,9 @@ function getFOVbyAlt(celestialBodyIdx, scannerIdx, altitude) {
 	var bestAlt = (scanners[scannerIdx].bestAlt < celestialBodies[celestialBodyIdx].soi
 		? scanners[scannerIdx].bestAlt
 		: celestialBodies[celestialBodyIdx].soi);
+	var homeWorldRadius = celestialBodies[homeWorldIdx].radius;
 	var fov = scanners[scannerIdx].fov * (altitude < bestAlt ? (altitude/bestAlt) : 1)
-		* (celestialBodies[celestialBodyIdx].radius > 600000 ? 1 : Math.sqrt(600000/celestialBodies[celestialBodyIdx].radius));
+		* (celestialBodies[celestialBodyIdx].radius > homeWorldRadius ? 1 : Math.sqrt(homeWorldRadius/celestialBodies[celestialBodyIdx].radius));
 	if (fov > 20) {
 		fov = 20;
 	}
