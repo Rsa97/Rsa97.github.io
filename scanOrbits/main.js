@@ -101,7 +101,7 @@ function calcOrbits() {
 			                   +maxAlt+" ("+Math.sqrt(Math.pow(maxAlt+body.radius, 3)/body.gm)*2*Math.PI+") : "
 			                   +minResonance+" : "+maxResonance);
 		minTime = -1;
-		for (done = false, bodyTurns = 1; !done && bodyTurns <= maxDays; bodyTurns += 1) {
+		for (done = false, bodyTurns = 1; !done && bodyTurns <= maxDays; bodyTurns += 2) {
 			satTurns = Math.ceil(bodyTurns*maxResonance);
 			if (satTurns < minSatTurns)
 				satTurns = minSatTurns;
