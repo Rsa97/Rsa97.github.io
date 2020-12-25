@@ -53,7 +53,7 @@ function formatTime(period) {
 }
 
 function calcOrbits() {
-	var minOver = 0.1;
+	var minOver = 0.15;
 	var limitFOV = 2;
 	var maxInclin = 90/180/Math.PI;
 	var maxDays = 100;
