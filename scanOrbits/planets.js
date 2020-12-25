@@ -23,7 +23,7 @@ var planetPacks = {
 	    {name:'Tylo',   radius:   600000, sideral: 211926.36,  mass:4.2332635e22, soi:  10856518,    lowOrbit:250000, peak: 11290, gm:2.8252800e12, parent:10}, // 13
 	    {name:'Bop',    radius:    65000, sideral: 544507.43,  mass:3.7261536e19, soi:   1221060.9,  lowOrbit: 25000, peak: 21758, gm:2.4868349e09, parent:10}, // 14
 	    {name:'Pol',    radius:    44000, sideral: 901902.62,  mass:1.0813636e19, soi:   1042138.9 , lowOrbit: 21000, peak:  5591, gm:7.2170208e08, parent:10}, // 15
-	    {name:'Eeloo',  radius:   210000, sideral:  19460,     mass:1.1149358e21, soi: 119082940,    lowOrbit: 60000, peak:  3874, gm:7.4410815e10, parent: 0}  // 16
+	    {name:'Eeloo',  radius:   210000, sideral:  19460,     mass:1.1149358e21, soi: 119082940,    lowOrbit: 60000, peak:  3874, gm:7.4410815e10, parent: 0}, // 16
         ],
 	homeWorldIdx: 4,
     },
@@ -60,7 +60,7 @@ var planetPacks = {
 	    {name:'Hox',       radius:  250000, sideral:  64800,   mass:1.28569312e21, soi: 576558500, lowOrbit: 125000,  peak: 40000, gm:8.5811016e10, parent: 0},
 	    {name:'Argo',      radius:   80000, sideral: 947939.3, mass:3.29137439e19, soi:   2885400, lowOrbit:  40000,  peak:  2500, gm:2.1967620e9,  parent:27},
 	    {name:'Leto',      radius:  210000, sideral:  21600,   mass:7.77587200e20, soi: 600296000, lowOrbit: 105000,  peak: 35000, gm:5.1898502e10, parent: 0},
-	    {name:'Grannus',   radius:30170000, sideral:1296000,   mass:9.54944429e27, soi:      5e11, lowOrbit:   5e10,  peak:400000, gm:6,3735856e17, parent: 0}
+	    {name:'Grannus',   radius:30170000, sideral:1296000,   mass:9.54944429e27, soi:      5e11, lowOrbit:   5e10,  peak:400000, gm:6.3735856e17, parent: 0},
 	],
 	homeWorldIdx: 5,
     },
