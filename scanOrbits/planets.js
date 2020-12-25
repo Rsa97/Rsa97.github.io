@@ -66,5 +66,5 @@ var planetPacks = {
     },
 };
 
-var celestialBodies = planetPacksCelestialBodies.stock.bodies;
-var homeWorldIdx = planetPacksCelestialBodies.stock.homeWorldIdx;
+var celestialBodies = planetPacks.stock.bodies;
+var homeWorldIdx = planetPacks.stock.homeWorldIdx;
