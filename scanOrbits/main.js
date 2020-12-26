@@ -151,7 +151,21 @@ function calcOrbits() {
 	}); 
 }
 
+changePlanetPack(ppid) {
+	celestialBodies = planetPacks.[ppid].bodies;
+	homeWorldIdx = planetPacks.[ppid].homeWorldIdx;
+}
+
 $(function() {
+	var ppoptions = '';
+	$.each(planetPacks, function(ppid, desc) {
+		ppoptions += '<option value="' + ppid + (ppid == 'stock' ? '" selected>' : '">') + desc.name + '</option>';
+	});
+	$('#planetPack').html(ppoptions);
+	$('#planetPack').on("change", function(e) {
+		changePlanetPack($(this).val());
+	}
+	changePlanetPack('stock');
 	scanners.forEach(function(scanner, idx) {
 		$("#scanners").append('<tr data-idx="'+idx+'"'+(scanner.avail == 1 ? '' : ' class="unavail"')+'><td><a class="btn btn-sm '+
 							(scanner.avail == 1 ? 'btn-success' : 'btn-danger')+
