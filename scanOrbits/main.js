@@ -151,7 +151,7 @@ function calcOrbits() {
 	}); 
 }
 
-changePlanetPack(ppid) {
+function changePlanetPack(ppid) {
 	celestialBodies = planetPacks.[ppid].bodies;
 	homeWorldIdx = planetPacks.[ppid].homeWorldIdx;
 }
