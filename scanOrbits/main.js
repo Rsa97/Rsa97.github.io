@@ -164,7 +164,7 @@ $(function() {
 	$('#planetPack').html(ppoptions);
 	$('#planetPack').on("change", function(e) {
 		changePlanetPack($(this).val());
-	}
+	});
 	changePlanetPack('stock');
 	scanners.forEach(function(scanner, idx) {
 		$("#scanners").append('<tr data-idx="'+idx+'"'+(scanner.avail == 1 ? '' : ' class="unavail"')+'><td><a class="btn btn-sm '+
