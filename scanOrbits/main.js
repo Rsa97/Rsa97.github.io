@@ -164,6 +164,7 @@ $(function() {
 	$('#planetPack').html(ppoptions);
 	$('#planetPack').on("change", function(e) {
 		changePlanetPack($(this).val());
+		calcOrbits();
 	});
 	changePlanetPack('stock');
 	scanners.forEach(function(scanner, idx) {
