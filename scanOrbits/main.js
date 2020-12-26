@@ -152,8 +152,8 @@ function calcOrbits() {
 }
 
 function changePlanetPack(ppid) {
-	celestialBodies = planetPacks.[ppid].bodies;
-	homeWorldIdx = planetPacks.[ppid].homeWorldIdx;
+	celestialBodies = planetPacks[ppid].bodies;
+	homeWorldIdx = planetPacks[ppid].homeWorldIdx;
 }
 
 $(function() {
